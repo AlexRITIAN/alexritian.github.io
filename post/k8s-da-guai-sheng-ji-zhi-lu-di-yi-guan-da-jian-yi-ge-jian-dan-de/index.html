@@ -1,0 +1,683 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>k8s打怪升级之路---第一关，搭建一个简单的 | Note My Life</title>
+<meta name="description" content="随便写写，胡乱记记" />
+<link rel="shortcut icon" href="https://alexritian.github.io/favicon.ico">
+<link rel="stylesheet" href="https://alexritian.github.io/styles/main.css">
+
+<script src="https://alexritian.github.io/media/js/jquery.min.js"></script>
+<script src="https://alexritian.github.io/media/js/masonry.pkgd.min.js"></script>
+<script src="https://alexritian.github.io/media/js/aos.js"></script>
+<script src="https://alexritian.github.io/media/js/pace.min.js"></script>
+<script src="https://alexritian.github.io/media/js/view-image.min.js"></script>
+<script src="https://alexritian.github.io/media/js/jquery.magnific-popup.min.js"></script>
+<script src="https://alexritian.github.io/media/js/functions.js"></script>
+    <meta name="referrer" content="never">
+    <meta name="description" content="使用kubeadm搭建一个简单的k8s集群
+
+准备阶段
+规划节点
+准备linux服务器（配置随意，不能小于2C/2G 😜），规划哪些服务器作为master节点，那些作为node节点。
+我准备了4台服务器,一台作为master节点，2台作为..." />
+    <meta name="keywords" content="k8s" />
+    <script src="https://alexritian.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://alexritian.github.io/media/js/prism.min.js"></script>
+  </head>
+  <body>
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
+        </div>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://alexritian.github.io"><img src="/media/images/custom-headerLogo.jpeg" alt=""></a>
+            </div>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                <li class=""><a href="https://alexritian.github.io" class="menu">首页</a></li>
+                
+                  <li class="" >
+                    <a href="/" class="menu">
+                      首页
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/post/about" class="menu">
+                      关于
+                    </a>
+                  </li>
+                
+                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
+              </ul>
+            </nav>
+            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
+        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
+          <div class="search-wrapper section">
+            <form id="gridea-search-form" data-update="1676619208643" action="/search/index.html" class="search-form" _lpchecked="1">
+              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
+              <button type="submit" class="submit" aria-label="Submit">
+                <i class="fa fa-search-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://alexritian.github.io/post-images/k8s-da-guai-sheng-ji-zhi-lu-di-yi-guan-da-jian-yi-ge-jian-dan-de.png');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2022-11-07"><i class="fa fa-calendar"></i><span class="lately">3 个月前</span></time>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://alexritian.github.io/tag/qUEJ3D9at/" class="ctag ctag-0 ctag-qUEJ3D9at" aria-label="">k8s</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">k8s打怪升级之路---第一关，搭建一个简单的</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>使用kubeadm搭建一个简单的k8s集群</p>
+<!-- more -->
+<h1 id="准备阶段">准备阶段</h1>
+<h2 id="规划节点">规划节点</h2>
+<p>准备linux服务器（配置随意，不能小于2C/2G 😜），规划哪些服务器作为master节点，那些作为node节点。<br>
+我准备了4台服务器,一台作为master节点，2台作为node节点,有一台不加入集群的服务器作为部署节点。</p>
+<blockquote>
+<p>[!tip]<br>
+部署节点不是必须的，集群中的任何节点都可以执行部署操作</p>
+</blockquote>
+<h3 id="节点名字可选">节点名字(可选)</h3>
+<p>给每个节点起名字，然后将其配置到每个服务器的 <code>/etc/hosts</code></p>
+<blockquote>
+<p>[!tip]<br>
+默认Pod不会调度到master节点，只会在node节点调度</p>
+</blockquote>
+<h2 id="下载安装包">下载安装包</h2>
+<h3 id="containerd">containerd</h3>
+<ul>
+<li><a href="https://github.com/containerd/containerd/releases">containerd-releases</a> :<br>
+从github现在最新release版本</li>
+<li><a href="https://github.com/containerd/containerd/blob/main/containerd.service">containerd.service</a> 文件</li>
+<li><a href="https://github.com/containerd/containerd/blob/main/go.mod">go.mod</a></li>
+</ul>
+<h3 id="runc">runc</h3>
+<ul>
+<li><a href="https://github.com/opencontainers/runc/releases">runc-releases</a></li>
+</ul>
+<h3 id="cni-plugin">cni-plugin</h3>
+<ul>
+<li><a href="https://github.com/containernetworking/plugins/releases">plugins-releases</a></li>
+<li><a href="https://github.com/containerd/containerd/blob/main/script/setup/install-cni">初始化脚本</a></li>
+</ul>
+<h3 id="cilium">cilium</h3>
+<ul>
+<li><a href="https://github.com/cilium/cilium-cli/releases/">releases</a></li>
+</ul>
+<h3 id="hlem">hlem</h3>
+<ul>
+<li><a href="https://github.com/helm/helm/releases">releases</a></li>
+</ul>
+<h3 id="go">go</h3>
+<ul>
+<li><a href="https://go.dev/dl/go1.19.1.linux-amd64.tar.gz">Download</a></li>
+</ul>
+<h3 id="k9s">k9s</h3>
+<ul>
+<li><a href="https://github.com/derailed/k9s/releases">release</a></li>
+</ul>
+<h2 id="安装组件">安装组件</h2>
+<p><em><strong>所有节点（服务器）都需要进行下列操作</strong></em></p>
+<blockquote>
+<p>[!tip]<br>
+有条件的使用 <code>root</code> 用户进行下列操作，非root用户也是可以的，只是我是使用root进行的操作</p>
+</blockquote>
+<h3 id="install-go">install go</h3>
+<ol>
+<li><code>rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.19.1.linux-amd64.tar.gz</code></li>
+<li>添加<code>export PATH=$PATH:/usr/local/go/bin</code>到<code>/etc/profile</code></li>
+<li><code>source /etc/profile</code></li>
+<li><code>go version</code></li>
+</ol>
+<p>执行下列命令</p>
+<pre><code class="language-sh">rm -rf /usr/local/go &amp;&amp; tar -C /usr/local -xzf go1.19.1.linux-amd64.tar.gz
+</code></pre>
+<p>配置环境变量，添加下列内容到 <code>/etc/profile</code></p>
+<pre><code>export PATH=$PATH:/usr/local/go/bin
+</code></pre>
+<p>执行下列命令使环境变量生效</p>
+<pre><code class="language-sh">source /etc/profile
+</code></pre>
+<p>验证</p>
+<pre><code class="language-sh">go version
+</code></pre>
+<h3 id="install-go-mod">install go mod</h3>
+<blockquote>
+<p>[!attention]<br>
+我不懂GO，所以containerd go mod我是直接从github下载文件放到了go的目录中 😅</p>
+</blockquote>
+<pre><code class="language-sh">mkdir -p /usr/local/go/bin/src/github.com/containerd/containerd/
+cp go.mod /usr/local/go/bin/src/github.com/containerd/containerd/
+</code></pre>
+<h3 id="install-containerd">install containerd</h3>
+<p>解压[[#containerd|准备阶段]] 下载的 <code>containerd-x.x.x-llinux-amd64.tar.gz</code> 解压到 <code>/usr/local</code> 目录</p>
+<pre><code class="language-sh">tar Cxzvf /usr/local containerd-1.6.8-linux-amd64.tar.gz
+</code></pre>
+<h3 id="install-runc">install runc</h3>
+<p>通过下列命令将[[#runc#|准备阶段]] 下载的<code>runc.&lt;ARCH&gt;</code> 安装到<code>/user/sbin/</code> 目录</p>
+<pre><code class="language-sh">install -m 755 runc.amd64 /usr/sbin/runc
+</code></pre>
+<h3 id="install-cni-plugin">install CNI plugin</h3>
+<p>通过下列命令将[[#cni-plugin|准备阶段]] 下载的 <code>cni-plugins-xxx-xxx-vxxxx.tgz</code> 解压到 <code>/opt/cni/bin</code> 目录</p>
+<pre><code class="language-sh">mkdir -p /opt/cni/bin
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.1.1.tgz
+</code></pre>
+<h3 id="install-kubeadm-kubelet-和-kubectl">install kubeadm、kubelet 和 kubectl</h3>
+<pre><code class="language-sh">cat &lt;&lt;EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-\$basearch
+enabled=1
+gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+exclude=kubelet kubeadm kubectl
+EOF
+
+sudo setenforce 0
+sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config
+
+sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
+
+sudo systemctl enable --now kubelet
+</code></pre>
+<h2 id="进行配置">进行配置</h2>
+<h3 id="关闭swap">关闭swap</h3>
+<p>编辑 <code>/etc/fstab</code> 注释 swap 行</p>
+<h3 id="配置iptables">配置iptables</h3>
+<pre><code class="language-sh">cat &lt;&lt;EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
+EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+# 设置所需的 sysctl 参数，参数在重新启动后保持不变
+cat &lt;&lt;EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
+# 应用 sysctl 参数而不重新启动
+sudo sysctl --system
+</code></pre>
+<h3 id="配置containerdservice">配置containerd.service</h3>
+<p>将[[#准备阶段#containerd#|准备阶段]] 下载的<code>containerd.service</code>文件复制到<code>/usr/lib/systemd/system/</code>，然后执行下列命令：</p>
+<pre><code class="language-sh">systemctl daemon-reload
+systemctl enable --now containerd
+</code></pre>
+<h3 id="配置containerd">配置containerd</h3>
+<h4 id="配置containerdservice-2">配置containerd.service</h4>
+<p>将[[#准备阶段#containerd#|准备阶段]] 下载的<code>containerd.service</code>文件复制到<code>/usr/lib/systemd/system/</code>，然后执行下列命令：</p>
+<pre><code class="language-sh">systemctl daemon-reload
+systemctl enable --now containerd
+</code></pre>
+<p>通过下面命令生成containerd默认配置文件</p>
+<pre><code class="language-sh">containerd config default &gt; /etc/containerd/config.toml
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+遇到<code>no such file or directory: /etc/containerd/config.toml</code>报错，通过下列命令创建目录</p>
+<pre><code class="language-sh">mkdir -p /etc/containerd/
+</code></pre>
+<p>遇到<code>command not found: containerd</code>,查询 <code>containerd</code>位置</p>
+<pre><code class="language-sh">whereis containerd
+</code></pre>
+<p>结果输出<code>containerd: /usr/local/bin/containerd</code>，将输出目录添加到<code>$PATH</code></p>
+</blockquote>
+<h4 id="配置国内镜像源">配置国内镜像源</h4>
+<p>修改 <code>/etc/containerd/config.toml</code> 文件</p>
+<p>修改sandbox_image的镜像</p>
+<pre><code>[plugins.&quot;io.containerd.grpc.v1.cri&quot;]
+    sandbox_image = &quot;registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.6&quot;
+</code></pre>
+<p>修改registry的镜像源</p>
+<pre><code>[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;docker.io&quot;]
+    endpoint = [&quot;https://xxxxxx.mirror.aliyuncs.com&quot;, &quot;https://registry-1.docker.io&quot;]
+[plugins.&quot;io.containerd.grpc.v1.cri&quot;.registry.mirrors.&quot;k8s.gcr.io&quot;] 
+    endpoint = [&quot;registry.aliyuncs.com/google_containers&quot;]
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+xxxx.mirror.aliyuncs.com 需要到阿里云注册获取，每个帐号有一个独立的地址。</p>
+</blockquote>
+<h4 id="配置-systemd-cgroup-驱动">配置 <code>systemd</code> cgroup 驱动</h4>
+<p>在 <code>/etc/containerd/config.toml</code> 中设置 <code>SystemdCgroup</code> 为 <strong>true</strong></p>
+<pre><code>[plugins.&quot;io.containerd.grpc.v1.cri&quot;.containerd.runtimes.runc.options]
+    SystemdCgroup = true
+</code></pre>
+<h4 id="重启-congtainerdservice">重启 congtainerd.service</h4>
+<pre><code class="language-sh">sudo systemctl restart containerd
+</code></pre>
+<h3 id="初始化cni">初始化CNI</h3>
+<p>执行[[#cni-plugin|准备阶段]] 下载的初始化cni的脚本</p>
+<h1 id="启动阶段">启动阶段</h1>
+<h2 id="master节点">master节点</h2>
+<h3 id="初始化集群">初始化集群</h3>
+<blockquote>
+<p>[!tip]<br>
+如果规划的master节点有多个，只需要在第一个master节点进行初始化</p>
+</blockquote>
+<p>通过下列命令初始化节点</p>
+<pre><code class="language-sh">kubeadm init \
+--control-plane-endpoint=&lt;domain name&gt; \
+--image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers \
+--token= &lt;token&gt; \
+--token-ttl=0 \
+--apiserver-advertise-address=&lt;master ip&gt; \
+--pod-network-cidr=10.0.0.0/16 \
+--node-name=master
+</code></pre>
+<blockquote>
+<p>[!note]<br>
+<code>--control-plane-endopoint</code> : 配置control plane的域名，如果没有配置dns，需要在每个服务器上配置 <code>/etc/hosts</code><br>
+<code>--image-repository</code> : 镜像源地址，我使用的阿里云的源<br>
+<code>--token</code> ：配置集群的token，其他节点加入集群的时候使用, 格式： &quot;[a-z0-9]{6}.[a-z0-9]{16}&quot;  不使用此参数会自动生成一个<br>
+<code>--token-ttl</code> : token过期时间（例如 1 s，2 m，3 h），默认为 24h0m0s。如果设置为 '0'，则令牌将永不过期。<br>
+<code>--apiserver-advertise-address</code> :  master 节点的IP地址<br>
+<code>--pod-nwework-cidr</code> 这个是配置集群内部使用的网段<br>
+<code>--node-name</code> 节点的名字(可以不添加此参数，默认为服务器的hostname)</p>
+</blockquote>
+<p>命令执行成功之后会有如下输出</p>
+<pre><code>Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run &quot;kubectl apply -f [podnetwork].yaml&quot; with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+You can now join any number of control-plane nodes by copying certificate authorities
+and service account keys on each node and then running the following as root:
+
+  kubeadm join &lt;domain name&gt;:6443 --token &lt;token&gt; \
+	--discovery-token-ca-cert-hash &lt;hash&gt; \
+	--control-plane 
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join &lt;domain name&gt;:6443 --token &lt;token&gt; \
+	--discovery-token-ca-cert-hash &lt;sh256&gt;
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+输出中的<strong>jion</strong>命令，带有 <code>--control-plane</code> 参数的是添加master节点(管理节点)到集群中，另一个为添加node节点(work节点)到集群中。</p>
+</blockquote>
+<h3 id="生成cluster-config文件">生成cluster config文件</h3>
+<pre><code class="language-sh">mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre>
+<h2 id="node节点">node节点</h2>
+<p>通过下列命令把node节点加入集群</p>
+<pre><code class="language-sh">kubeadm join \
+&lt;master domin name&gt;:6443 \
+--token &lt;token&gt; \
+--discovery-token-ca-cert-hash &lt;hash256&gt; \
+--node-name=node1
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+<code>&lt;master domain name&gt;</code> : 初始化集群的时候配置的 <code>--control-plane-endopoint</code> 参数的值<br>
+<code>--token</code> : 初始化集群配置的token，直接复制初始化集群之后的输出内容中的 token使用即可<br>
+<code>--discovery-token-ca-cert-hash</code> : 直接复制初始化集群之后的输出内容中的 hash使用即可<br>
+<code>--node-name</code> : 节点的名字(可以不添加此参数，默认为服务器的hostname)</p>
+</blockquote>
+<h1 id="配置部署节点">配置部署节点</h1>
+<h2 id="copy-cluster-config文件到部署节点">copy cluster config文件到部署节点</h2>
+<pre><code class="language-sh">mkdir -p $HOME/.kube
+cp config $HOME/.kube/
+</code></pre>
+<blockquote>
+<p>[!tipe]<br>
+config文件来自master节点，目录在执行初始化集群操作的用户的 <code>$HOME/.kube/</code> 目录<br>
+如果选择在执行初始化集群命令的服务器上进行部署操作，可以跳过这步。<br>
+如果选择在其他节点的服务器上进行部署操作，需要执行此步</p>
+</blockquote>
+<h2 id="install-kubectl">install kubectl</h2>
+<p>参考 [[#install kubeadm、kubelet 和 kubectl|安装组件]] 安装kubectl</p>
+<h2 id="install-helm">install helm</h2>
+<pre><code class="language-sh">tar -zxvf helm-v3.0.0-linux-amd64.tar.gz
+mv linux-amd64/helm /usr/local/bin/helm
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+有些虚机可能没有将 <code>/usr/local/bin</code> 目录加入到 <code>$PATH</code></p>
+</blockquote>
+<h2 id="install-k9s">install k9s</h2>
+<ol>
+<li>解压</li>
+<li>copy k9s to /usr/local/bin</li>
+</ol>
+<h1 id="部署应用">部署应用</h1>
+<h2 id="网络组件">网络组件</h2>
+<h3 id="install-cilium">install cilium</h3>
+<pre><code class="language-sh">sudo tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz /usr/local/bin
+cilium install
+</code></pre>
+<p>查看一下状态</p>
+<pre><code class="language-sh">cilium status
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://alexritian.github.io/post-images/1667801122358.png" alt="" loading="lazy"></figure>
+<h2 id="测试用例">测试用例</h2>
+<h3 id="部署busybox">部署busybox</h3>
+<p>创建一个 <code>busybox.yaml</code> 文件,将下列内容写入文件中</p>
+<pre><code class="language-yaml">apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: busybox
+  labels:
+    app: guestbook
+    tier: busybox
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      tier: busybox
+  template:
+    metadata:
+      labels:
+        tier: busybox
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.28
+        command:
+          - sleep
+          - &quot;3600&quot;
+        imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
+</code></pre>
+<p>执行下列命令，部署busybox到集群中</p>
+<pre><code class="language-sh">kubectl apply -f busybox.yaml
+</code></pre>
+<h1 id="检查集群状态">检查集群状态</h1>
+<p>通过<strong>k9s</strong>查看并测试集群</p>
+<p>执行命令，进入k9s界面。</p>
+<pre><code class="language-sh">k9s
+</code></pre>
+<h2 id="查看节点状态">查看节点状态</h2>
+<p>按 <code>ESC</code>,然后 按 <code>：</code>，然后输入 <code>node</code>, 然后按 <code>Enter</code>。  然后看看 <code>STATUS</code> 列是否都是 <code>Ready</code>。</p>
+<figure data-type="image" tabindex="2"><img src="https://alexritian.github.io/post-images/1667801331436.png" alt="" loading="lazy"></figure>
+<h2 id="查看-pod状态">查看 Pod状态</h2>
+<p>进入k9s之后，按<code>：</code>，然后输入 <code>pods</code>,然后按 <code>enter</code> ， 然后按 <code>0</code>,就可以看到类似下面的内容. 查看 <code>READY</code> 和 <code>STATUS</code> 是否正常。</p>
+<blockquote>
+<p>[!info]<br>
+k9s的详细操作，可以参考<a href="https://k9scli.io/">官网</a>.</p>
+</blockquote>
+<figure data-type="image" tabindex="3"><img src="https://alexritian.github.io/post-images/1667801528966.png" alt="" loading="lazy"></figure>
+<h2 id="检查集群内部网络">检查集群内部网络</h2>
+<p>通过方向键选中 <code>busybox</code> 的pod，NAME以 <code>busybox</code>开头。然后按 <code>S</code> 进入pod shell。 (需要提前记录一下另一个 busybox的 IP)</p>
+<blockquote>
+<p>[!tip]<br>
+<code>IP</code> 列展示的是Pod在集群内部的IP地址</p>
+</blockquote>
+<pre><code class="language-sh">ping 10.0.0.44 -c 4
+</code></pre>
+<pre><code>PING 10.0.0.44 (10.0.0.44): 56 data bytes
+64 bytes from 10.0.0.44: seq=0 ttl=63 time=0.974 ms
+64 bytes from 10.0.0.44: seq=1 ttl=63 time=0.684 ms
+64 bytes from 10.0.0.44: seq=2 ttl=63 time=0.702 ms
+64 bytes from 10.0.0.44: seq=3 ttl=63 time=0.659 ms
+
+--- 10.0.0.44 ping statistics ---
+4 packets transmitted, 4 packets received, 0% packet loss
+
+</code></pre>
+<h1 id="搞定"><em><strong>搞定</strong></em></h1>
+<!-- more -->
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              <article class="prev grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://alexritian.github.io/post-images/java12-java17-xin-te-xing.png');"></div>
+                 <a href="https://alexritian.github.io/post/java12-java17-xin-te-xing/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2022-11-08">2022-11-08</time>
+                  <h4 class="title white no-margin">Java12-Java17新特性</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://alexritian.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div id="comments" class="bg-white hosted ">
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              </div>
+              <div class="clear"></div>
+            
+
+            </div>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang.jpeg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-17">2023-02-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/">RASA初体验---构建一个人工智障</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/shi-yong-docker-qi-dong-tansorflow.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-14">2023-02-14</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/">使用Docker启动TansorFlow</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/da-jian-jian-dan-de-openstack-ti-yan-huan-jing.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-01">2023-02-01</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/">搭建简单的openstack体验环境</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                      <a href="https://alexritian.github.io/tag/-Vhn_CHS9/" class="ctag ctag-0 ctag--Vhn_CHS9" aria-label="">rasa</a>
+                    
+                      <a href="https://alexritian.github.io/tag/4kwS6SyHpm/" class="ctag ctag-1 ctag-4kwS6SyHpm" aria-label="">chatbot</a>
+                    
+                      <a href="https://alexritian.github.io/tag/NZso5ulAf/" class="ctag ctag-2 ctag-NZso5ulAf" aria-label="">ai</a>
+                    
+                      <a href="https://alexritian.github.io/tag/P_RFhSqfsX/" class="ctag ctag-3 ctag-P_RFhSqfsX" aria-label="">tansorflow</a>
+                    
+                      <a href="https://alexritian.github.io/tag/cW0xTd3xwm/" class="ctag ctag-4 ctag-cW0xTd3xwm" aria-label="">docker</a>
+                    
+                      <a href="https://alexritian.github.io/tag/BeCMZQC7X/" class="ctag ctag-5 ctag-BeCMZQC7X" aria-label="">openstack</a>
+                    
+                      <a href="https://alexritian.github.io/tag/XeOQWp44KJ/" class="ctag ctag-6 ctag-XeOQWp44KJ" aria-label="">linux</a>
+                    
+                      <a href="https://alexritian.github.io/tag/qUEJ3D9at/" class="ctag ctag-7 ctag-qUEJ3D9at" aria-label="">k8s</a>
+                    
+                      <a href="https://alexritian.github.io/tag/ZVIZwxZ2r/" class="ctag ctag-8 ctag-ZVIZwxZ2r" aria-label="">ubuntu</a>
+                    
+                      <a href="https://alexritian.github.io/tag/0EAfXnwKzj/" class="ctag ctag-9 ctag-0EAfXnwKzj" aria-label="">chrome</a>
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://alexritian.github.io/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Note My Life</a></h4>
+                    <p class="founder">随便写写，胡乱记记</p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="logo">
+          <a href="https://alexritian.github.io"><img src="/media/images/custom-footerLogo.jpeg" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          ©2019 共 10 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
+        
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    
+    <div class="clear"></div>
+
+        
+
+      
+    <script src="https://alexritian.github.io/media/js/functions-post.js"></script>
+
+    </div>
+    <!-- end: #wrapper -->
+  </body>
+</html>

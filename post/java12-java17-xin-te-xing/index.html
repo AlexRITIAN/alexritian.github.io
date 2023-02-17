@@ -1,0 +1,1083 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Java12-Java17新特性 | Note My Life</title>
+<meta name="description" content="随便写写，胡乱记记" />
+<link rel="shortcut icon" href="https://alexritian.github.io/favicon.ico">
+<link rel="stylesheet" href="https://alexritian.github.io/styles/main.css">
+
+<script src="https://alexritian.github.io/media/js/jquery.min.js"></script>
+<script src="https://alexritian.github.io/media/js/masonry.pkgd.min.js"></script>
+<script src="https://alexritian.github.io/media/js/aos.js"></script>
+<script src="https://alexritian.github.io/media/js/pace.min.js"></script>
+<script src="https://alexritian.github.io/media/js/view-image.min.js"></script>
+<script src="https://alexritian.github.io/media/js/jquery.magnific-popup.min.js"></script>
+<script src="https://alexritian.github.io/media/js/functions.js"></script>
+    <meta name="referrer" content="never">
+    <meta name="description" content="从网上收集整理Java12-Java17的非预览，非孵化的特性
+
+参考文章
+
+OpenJDK Java 17 下载
+OpenJDK Java 17 文档
+https://www.wdbyte.com/java/java-17/
+https:..." />
+    <meta name="keywords" content="" />
+    <script src="https://alexritian.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://alexritian.github.io/media/js/prism.min.js"></script>
+  </head>
+  <body>
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
+        </div>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://alexritian.github.io"><img src="/media/images/custom-headerLogo.jpeg" alt=""></a>
+            </div>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                <li class=""><a href="https://alexritian.github.io" class="menu">首页</a></li>
+                
+                  <li class="" >
+                    <a href="/" class="menu">
+                      首页
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/post/about" class="menu">
+                      关于
+                    </a>
+                  </li>
+                
+                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
+              </ul>
+            </nav>
+            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
+        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
+          <div class="search-wrapper section">
+            <form id="gridea-search-form" data-update="1676619208643" action="/search/index.html" class="search-form" _lpchecked="1">
+              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
+              <button type="submit" class="submit" aria-label="Submit">
+                <i class="fa fa-search-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://alexritian.github.io/post-images/java12-java17-xin-te-xing.png');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2022-11-08"><i class="fa fa-calendar"></i><span class="lately">3 个月前</span></time>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+              </div>
+              <h1 class="title ularge white bold">Java12-Java17新特性</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>从网上收集整理Java12-Java17的非预览，非孵化的特性</p>
+<!-- more -->
+<h1 id="参考文章">参考文章</h1>
+<ol>
+<li><a href="https://jdk.java.net/archive/">OpenJDK Java 17 下载</a></li>
+<li><a href="https://openjdk.java.net/projects/jdk/17/">OpenJDK Java 17 文档</a></li>
+<li><a href="https://www.wdbyte.com/java/java-17/">https://www.wdbyte.com/java/java-17/</a></li>
+<li>https://docs.oracle.com/en/java/javase/17/</li>
+</ol>
+<h1 id="编码相关非预览">编码相关(非预览)</h1>
+<h2 id="文件对比-filesmismatch">文件对比 Files.mismatch</h2>
+<p>对比两个文件，如果内容一致，会返回 -1 ，如果内容不同，会返回不同的字节开始位置。</p>
+<pre><code class="language-java">// 创建两个文件
+Path pathA = Files.createFile(Paths.get(&quot;a.txt&quot;));
+Path pathB = Files.createFile(Paths.get(&quot;b.txt&quot;));
+
+// 写入相同内容
+Files.write(pathA,&quot;abc&quot;.getBytes(), StandardOpenOption.WRITE);
+Files.write(pathB,&quot;abc&quot;.getBytes(), StandardOpenOption.WRITE);
+long mismatch = Files.mismatch(pathA, pathB);
+System.out.println(mismatch);
+
+// 追加不同内容
+Files.write(pathA,&quot;123&quot;.getBytes(), StandardOpenOption.APPEND);
+Files.write(pathB,&quot;321&quot;.getBytes(), StandardOpenOption.APPEND);
+mismatch = Files.mismatch(pathA, pathB);
+System.out.println(mismatch);
+
+// 删除创建的文件
+pathA.toFile().deleteOnExit();
+pathB.toFile().deleteOnExit();
+
+// RESULT
+// -1
+// 3
+</code></pre>
+<h2 id="compact-number">Compact Number</h2>
+<p>简化的数字格式可以直接转换数字显示格式，比如 1000 -&gt; 1K，1000000 -&gt; 1M 。</p>
+<pre><code class="language-java">System.out.println(&quot;Compact Formatting is:&quot;);
+NumberFormat upvotes = NumberFormat.getCompactNumberInstance(new Locale(&quot;en&quot;, &quot;US&quot;), Style.SHORT);
+
+System.out.println(upvotes.format(100));
+System.out.println(upvotes.format(1000));
+System.out.println(upvotes.format(10000));
+System.out.println(upvotes.format(100000));
+System.out.println(upvotes.format(1000000));
+
+// 设置小数位数
+upvotes.setMaximumFractionDigits(1);
+System.out.println(upvotes.format(1234));
+System.out.println(upvotes.format(123456));
+System.out.println(upvotes.format(12345678));
+</code></pre>
+<p>输出：</p>
+<pre><code>100
+1K
+10K
+100K
+1M
+1.2K
+123.5K
+12.3M
+</code></pre>
+<h2 id="jep-353重新实现socket-api">JEP 353：重新实现Socket API</h2>
+<p><code>java.net.Socket</code> 和 <code>java.net.ServerSocket</code> 类早在 Java 1.0 时就已经引入了，它们的实现的 Java 代码和 C 语言代码的混合，维护和调试都十分不易；而且这个实现还存在并发问题，有时候排查起来也很困难。</p>
+<p>因此，在 Java 13 中引入了新的实现方式，使用了新的实现 <code>NioSocketImpl</code> 来代替老旧的 <code>PlainSocketImpl</code> 实现。虽然功能相同，但是老的方式在当前以及未来几个版本内不会删除，用户随时可以通过 <code>-Djdk.net.usePlainSocketImpl</code> 参数切换回老的实现方式，以兼容意外情况。</p>
+<pre><code class="language-java">import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+public class Test {
+    public static void main(String[] args) {
+        try (ServerSocket serverSocket = new ServerSocket(8000)){
+            boolean running = true;
+            while(running){
+                Socket clientSocket = serverSocket.accept();
+                //do something with clientSocket
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+</code></pre>
+<p>使用 Java 13 运行，通过参数 <code>-XX:+TraceClassLoading</code> 追踪加载的类，日志中可以看到 <code>NioSocketImpl</code>。</p>
+<pre><code class="language-shell">➜  develop ./jdk-13.0.2.jdk/Contents/Home/bin/java -XX:+TraceClassLoading Test.java | grep SocketImpl
+[0.699s][info   ][class,load] java.net.SocketImpl source: jrt:/java.base
+[0.699s][info   ][class,load] java.net.SocketImpl$$Lambda$173/0x0000000800c37440 source: java.net.SocketImpl
+[0.702s][info   ][class,load] sun.net.PlatformSocketImpl source: jrt:/java.base
+[0.702s][info   ][class,load] sun.nio.ch.NioSocketImpl source: jrt:/java.base
+[0.713s][info   ][class,load] sun.nio.ch.NioSocketImpl$FileDescriptorCloser source: jrt:/java.base
+</code></pre>
+<p>但在 Java 12 并不是 <code>NioSocketImpl</code>。</p>
+<pre><code class="language-shell">➜  develop ./jdk-12.0.2.jdk/Contents/Home/bin/java -XX:+TraceClassLoading Test.java | grep SocketImpl
+[0.665s][info   ][class,load] java.net.SocketImpl source: jrt:/java.base
+[0.665s][info   ][class,load] java.net.AbstractPlainSocketImpl source: jrt:/java.base
+[0.665s][info   ][class,load] java.net.PlainSocketImpl source: jrt:/java.base
+[0.665s][info   ][class,load] java.net.SocksSocketImpl source: jrt:/java.base
+[0.666s][info   ][class,load] java.net.AbstractPlainSocketImpl$1 source: jrt:/java.base
+</code></pre>
+<h2 id="jep-358更有用的nullpointerexceptions">JEP 358：更有用的NullPointerExceptions</h2>
+<p><code>NullPointerException</code> 一直都是一个比较常见的异常，但是在 Java 14 之前，如果一行有多个表达式时，这时报了空指针后，单纯的从报错信息来看，可能并不知道是哪个对象为 <code>NULL</code> ，下面是一个演示。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public class Java14NullPointerExceptions {
+
+    public static void main(String[] args) {
+        String content1 = &quot;www.wdbyte.com&quot;;
+        String content2 = null;
+        int length = content1.length() + content2.length();
+        System.out.println(length);
+    }
+}
+</code></pre>
+<p>在 Java 14 之前，从下面的报错中我们只能得到错误出现的行数，但是并不能确定是 <code>conteng1</code> 还是 <code>content2</code> 为 <code>null</code>。</p>
+<pre><code class="language-shell">Exception in thread &quot;main&quot; java.lang.NullPointerException
+	at com.alibaba.security.astralnet.console.controller.ApiChartsTest.main(Java14NullPointerExceptions.java:8)
+</code></pre>
+<p>但是在 Java 14 中，会清晰的告诉你 <code>because &quot;content2&quot; is null</code> 。</p>
+<pre><code class="language-shell">Exception in thread &quot;main&quot; java.lang.NullPointerException: 
+	Cannot invoke &quot;String.length()&quot; because &quot;content2&quot; is null
+	at com.wdbyte.Java14NullPointerExceptions.main(Java14NullPointerExceptions.java:8)
+</code></pre>
+<h2 id="jep-361-swtich表达式标准">JEP 361: Swtich表达式（标准）</h2>
+<p>Switch 表达式改进从 Java 12 就已经开始了，[[Java 12 新功能#Switch 表达式（JEP 325 （预览）|Java 12 让 switch 支持了 <code>L-&gt;</code> 语法]]，[[Java 13 新功能#Switch表达式 二次预览 （JEP 354|Java 13 引入了 <code>yield</code> 关键词用于返回结果]]，但是在 Java 12 和 13 中功能都是预览版的，而在 Java 14 中，正式转正。</p>
+<pre><code class="language-java">// 通过传入月份，输出月份所属的季节
+public static String switchJava12(String month) {
+     return switch (month) {
+        case &quot;march&quot;, &quot;april&quot;, &quot;may&quot;            -&gt; &quot;春天&quot;;
+        case &quot;june&quot;, &quot;july&quot;, &quot;august&quot;           -&gt; &quot;夏天&quot;;
+        case &quot;september&quot;, &quot;october&quot;, &quot;november&quot; -&gt; &quot;秋天&quot;;
+        case &quot;december&quot;, &quot;january&quot;, &quot;february&quot;  -&gt; &quot;冬天&quot;;
+        default -&gt; &quot;month erro&quot;;
+    };
+}
+// 通过传入月份，输出月份所属的季节
+public static String switchJava13(String month) {
+    return switch (month) {
+        case &quot;march&quot;, &quot;april&quot;, &quot;may&quot;:
+            yield &quot;春天&quot;;
+        case &quot;june&quot;, &quot;july&quot;, &quot;august&quot;:
+            yield &quot;夏天&quot;;
+        case &quot;september&quot;, &quot;october&quot;, &quot;november&quot;:
+            yield &quot;秋天&quot;;
+        case &quot;december&quot;, &quot;january&quot;, &quot;february&quot;:
+            yield &quot;冬天&quot;;
+        default:
+            yield &quot;month error&quot;;
+    };
+}
+</code></pre>
+<h2 id="jep-339爱德华曲线算法eddsa">JEP 339：爱德华曲线算法(EdDSA)</h2>
+<p>Java 15 中增加了一个新的密码学算法，爱德华曲线算法（EdDSA）签名算法。它是由 Schnorr 算法发展而来，在 RFC8032 中被定义实现。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.util.Base64;
+
+public class JEP339 {
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance(&quot;Ed25519&quot;);
+        KeyPair kp = kpg.generateKeyPair();
+        byte[] msg = &quot;www.wdbyte.com&quot;.getBytes(StandardCharsets.UTF_8);
+        Signature sig = Signature.getInstance(&quot;Ed25519&quot;);
+        sig.initSign(kp.getPrivate());
+        sig.update(msg);
+        byte[] s = sig.sign();
+        System.out.println(Base64.getEncoder().encodeToString(s));
+    }
+}
+</code></pre>
+<p>输出结果：</p>
+<pre><code>VXlpxapU+LSWjVQ0QNJvdpUh6VI6PjSwOQ2pHu65bCfnLR13OyWKunlc9rc+7SMxCh2Mnqf7TmC/iOG8oimbAw==
+</code></pre>
+<h2 id="jep-371hidden-classes隐藏类">JEP 371：Hidden Classes(隐藏类)</h2>
+<p>这个特性让开发者可以引入一个无法被其他地方发现使用，且类的生命周期有限的类。这对运行时动态生成类的使用方式十分有利，可以减少内存占用，下面是一个使用示例。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public class JEP371Test {
+    public static String lookup() {
+      return &quot;www.wdbyte.com&quot;;
+    }
+}
+</code></pre>
+<p>把类 <code>JEP371Test</code> 编译后的 Class 转换成 <code>Base64</code>，然后使用 Java 15 新特性加载调用类中的 <code>lookup</code> 方法。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.util.Base64;
+
+/**
+ * @author www.wdbyte.com
+ */
+public class JEP371 {
+
+    private static String CLASS_INFO = &quot;yv66vgAAADQAFAoAAgADBwAEDAAFAAYBABBqYXZhL2xhbmcvT2JqZWN0AQAGPGluaXQ+AQADKClWCAAIAQAOd3d3LndkYnl0ZS5jb20HAAoBABVjb20vd2RieXRlL0pFUDM3MVRlc3QBAARDb2RlAQAPTGluZU51bWJlclRhYmxlAQASTG9jYWxWYXJpYWJsZVRhYmxlAQAEdGhpcwEAF0xjb20vd2RieXRlL0pFUDM3MVRlc3Q7AQAGbG9va3VwAQAUKClMamF2YS9sYW5nL1N0cmluZzsBAApTb3VyY2VGaWxlAQAPSkVQMzcxVGVzdC5qYXZhACEACQACAAAAAAACAAEABQAGAAEACwAAAC8AAQABAAAABSq3AAGxAAAAAgAMAAAABgABAAAAAwANAAAADAABAAAABQAOAA8AAAAJABAAEQABAAsAAAAbAAEAAAAAAAMSB7AAAAABAAwAAAAGAAEAAAAEAAEAEgAAAAIAEw==&quot;;
+
+    public static void main(String[] args) throws Throwable {
+        byte[] classInBytes = Base64.getDecoder().decode(CLASS_INFO);
+        Class&lt;?&gt; proxy = MethodHandles.lookup()
+            .defineHiddenClass(classInBytes, true, MethodHandles.Lookup.ClassOption.NESTMATE)
+            .lookupClass();
+
+        System.out.println(proxy.getName());
+        MethodHandle mh = MethodHandles.lookup().findStatic(proxy, &quot;lookup&quot;, MethodType.methodType(String.class));
+        String result = (String) mh.invokeExact();
+        System.out.println(result);
+    }
+}
+</code></pre>
+<p>输出结果</p>
+<pre><code>com.wdbyte.JEP371Test/0x0000000800c01800
+www.wdbyte.com
+</code></pre>
+<h2 id="jep-378文本块">JEP 378文本块</h2>
+<p>在这之前，如果我们把一个 JSON 赋值给字符串：</p>
+<pre><code class="language-java">String content = &quot;{\n&quot;
+    + &quot;    \&quot;upperSummary\&quot;: null,\n&quot;
+    + &quot;    \&quot;sensitiveTypeList\&quot;: null,\n&quot;
+    + &quot;    \&quot;gmtModified\&quot;: \&quot;2011-08-05 10:50:09\&quot;,\n&quot;
+    + &quot;    \&quot;lowerGraph\&quot;: null,\n&quot;
+    + &quot;    \&quot;signature\&quot;: \&quot;\&quot;,\n&quot;
+    + &quot;    \&quot;appName\&quot;: \&quot;xxx\&quot;,\n&quot;
+    + &quot;    \&quot;lowerSummary\&quot;: null,\n&quot;
+    + &quot;    \&quot;gmtCreate\&quot;: \&quot;2011-08-05 10:50:09\&quot;,\n&quot;
+    + &quot;    \&quot;type\&quot;: \&quot;CALL\&quot;,\n&quot;
+    + &quot;    \&quot;name\&quot;: \&quot;xxxx\&quot;,\n&quot;
+    + &quot;    \&quot;subType\&quot;: \&quot;yyy\&quot;,\n&quot;
+    + &quot;    \&quot;id\&quot;: 1,\n&quot;
+    + &quot;    \&quot;projectId\&quot;: 1,\n&quot;
+    + &quot;    \&quot;status\&quot;: 1\n&quot;
+    + &quot;}&quot;;
+</code></pre>
+<p>终于不用写丑陋的长字符串了，你可以使用文本块的方式定义字符串了。</p>
+<pre><code class="language-java">String content2 = &quot;&quot;&quot;
+        {
+        &quot;upperSummary&quot;: null,
+        &quot;sensitiveTypeList&quot;: null,
+        &quot;gmtModified&quot;: &quot;2011-08-05 10:50:09&quot;,
+        &quot;lowerGraph&quot;: null,
+        &quot;signature&quot;: &quot;&quot;,
+        &quot;appName&quot;: &quot;xxx&quot;,
+        &quot;lowerSummary&quot;: null,
+        &quot;gmtCreate&quot;: &quot;2011-08-05 10:50:09&quot;,
+        &quot;type&quot;: &quot;CALL&quot;,
+        &quot;name&quot;: &quot;xxxx&quot;,
+        &quot;subType&quot;: &quot;yyy&quot;,
+        &quot;id&quot;: 1,
+        &quot;projectId&quot;: 1,
+        &quot;status&quot;: 1
+    }
+                 &quot;&quot;&quot;;
+</code></pre>
+<p>两个特殊的转义符</p>
+<ol>
+<li><code>\</code> 结尾不换行</li>
+<li><code>\s</code> 表示一个空格</li>
+</ol>
+<p>示例：文本块体验</p>
+<pre><code class="language-java">String content = &quot;&quot;&quot;
+        {
+            &quot;upperSummary&quot;: null,\
+            &quot;sensitiveTypeList&quot;: null,
+            &quot;gmtModified&quot;: &quot;2011-08-05\s10:50:09&quot;,
+        }
+         &quot;&quot;&quot;;
+System.out.println(content);
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-json">{
+    &quot;upperSummary&quot;: null,    &quot;sensitiveTypeList&quot;: null,
+    &quot;gmtModified&quot;: &quot;2011-08-05 10:50:09&quot;,
+}
+</code></pre>
+<h2 id="jep-390基于值的类的警告">JEP 390：基于值的类的警告</h2>
+<p>添加了一个注解，用于标识当前是是基于值的类，比如 Java 8 引入的预防空指针的 Optional 类，现在已经添加了注解标识。</p>
+<pre><code class="language-java">@jdk.internal.ValueBased
+public final class Optional&lt;T&gt; {
+    // ...
+}
+</code></pre>
+<h2 id="jep-394instanceof-模式匹配">JEP 394：instanceof 模式匹配</h2>
+<p>在之前，使用 <code>instanceof</code> 需要如下操作：</p>
+<pre><code class="language-java">if (obj instanceof String) {
+    String s = (String) obj;    // grr...
+    ...
+}
+</code></pre>
+<p>多余的类型强制转换，而现在：</p>
+<pre><code class="language-java">if (obj instanceof String s) {
+    // Let pattern matching do the work!
+    ...
+}
+</code></pre>
+<h2 id="jep-395records">JEP 395：Records</h2>
+<p><code>record</code> 是一种全新的类型，它本质上是一个 <code>final</code> 类，同时所有的属性都是 <code>final</code> 修饰，它会自动编译出 <code>public get</code> <code>hashcode</code> 、<code>equals</code>、<code>toString</code> 等方法，减少了代码编写量。</p>
+<p>示例：编写一个 Dog record 类，定义 name 和 age 属性。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public record Dog(String name, Integer age) {
+}
+</code></pre>
+<p>Record 的使用。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public class Java14Record {
+
+    public static void main(String[] args) {
+        Dog dog1 = new Dog(&quot;牧羊犬&quot;, 1);
+        Dog dog2 = new Dog(&quot;田园犬&quot;, 2);
+        Dog dog3 = new Dog(&quot;哈士奇&quot;, 3);
+        System.out.println(dog1);
+        System.out.println(dog2);
+        System.out.println(dog3);
+    }
+}
+</code></pre>
+<p>输出结果：</p>
+<pre><code class="language-shell">Dog[name=牧羊犬, age=1]
+Dog[name=田园犬, age=2]
+Dog[name=哈士奇, age=3]
+</code></pre>
+<h2 id="jep-306-恢复始终严格的浮点语义">JEP 306： 恢复始终严格的浮点语义</h2>
+<p>既然是恢复严格的浮点语义，那么说明在某个时间点之前，是始终严格的浮点语义的。其实在 Java SE 1.2 之前，所有的浮点计算都是严格的，但是以当初的情况来看，过于严格的浮点计算在当初流行的 x86 架构和 x87 浮点协议处理器上运行，需要大量的额外的指令开销，所以在 Java SE 1.2 开始，需要手动使用关键字 <strong>strictfp</strong>（strict float point） 才能启用严格的浮点计算。</p>
+<p>但是在 2021 年的今天，硬件早已发生巨变，当初的问题已经不存在了，所以从 Java 17 开始，恢复了始终严格的浮点语义这一特性。</p>
+<p><strong>扩展</strong>：<em><strong>strictfp</strong></em> 是 Java 中的一个关键字，大多数人可能没有注意过它，它可以用在类、接口或者方法上，被 strictfp 修饰的部分中的 float 和 double 表达式会进行严格浮点计算。</p>
+<p>下面是一个示例，其中的 <code>testStrictfp()</code> 被 <code>strictfp</code> 修饰。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public class Main {
+    public static void main(String[] args) {
+        testStrictfp();
+    }
+
+    public strictfp static void testStrictfp() {
+        float aFloat = 0.6666666666666666666f;
+        double aDouble = 0.88888888888888888d;
+        double sum = aFloat + aDouble;
+        System.out.println(&quot;sum: &quot; + sum);
+    }
+}
+</code></pre>
+<h2 id="jep-356增强的伪随机数生成器">JEP 356：增强的伪随机数生成器</h2>
+<p>为伪随机数生成器 RPNG（pseudorandom number generator）增加了新的接口类型和实现，让在代码中使用各种 PRNG 算法变得容易许多。</p>
+<p>这次增加了 <code>RandomGenerator</code> 接口，为所有的 PRNG 算法提供统一的 API，并且可以获取不同类型的 PRNG 对象流。同时也提供了一个新类 <code>RandomGeneratorFactory</code> 用于构造各种 <code>RandomGenerator</code> 实例，在 <code>RandomGeneratorFactory</code> 中使用 <code>ServiceLoader.provider</code> 来加载各种 PRNG 实现。</p>
+<p>下面是一个使用示例：随便选择一个 PRNG 算法生成 5 个 10 以内的随机数。</p>
+<pre><code class="language-java">package com.wdbyte.java17;
+
+import java.util.Date;
+import java.util.random.RandomGenerator;
+import java.util.random.RandomGeneratorFactory;
+import java.util.stream.Stream;
+
+/**
+ * @author niulang
+ */
+public class JEP356 {
+
+    public static void main(String[] args) {
+        RandomGeneratorFactory&lt;RandomGenerator&gt; l128X256MixRandom = RandomGeneratorFactory.of(&quot;L128X256MixRandom&quot;);
+        // 使用时间戳作为随机数种子
+        RandomGenerator randomGenerator = l128X256MixRandom.create(System.currentTimeMillis());
+        for (int i = 0; i &lt; 5; i++) {
+            System.out.println(randomGenerator.nextInt(10));
+        }
+    }
+}
+
+</code></pre>
+<p>得到输出：</p>
+<pre><code>7
+3
+4
+4
+6
+</code></pre>
+<p>你也可以遍历出所有的 PRNG 算法。</p>
+<pre><code>RandomGeneratorFactory.all().forEach(factory -&gt; {
+    System.out.println(factory.group() + &quot;:&quot; + factory.name());
+});
+</code></pre>
+<p>得到输出：</p>
+<pre><code>LXM:L32X64MixRandom
+LXM:L128X128MixRandom
+LXM:L64X128MixRandom
+Legacy:SecureRandom
+LXM:L128X1024MixRandom
+LXM:L64X128StarStarRandom
+Xoshiro:Xoshiro256PlusPlus
+LXM:L64X256MixRandom
+Legacy:Random
+Xoroshiro:Xoroshiro128PlusPlus
+LXM:L128X256MixRandom
+Legacy:SplittableRandom
+LXM:L64X1024MixRandom
+</code></pre>
+<p>可以看到 <code>Legacy:Random</code> 也在其中，新的 API 兼容了老的 <code>Random</code> 方式，所以你也可以使用新的 API 调用 <code>Random</code> 类生成随机数。</p>
+<pre><code class="language-java">// 使用 Random
+RandomGeneratorFactory&lt;RandomGenerator&gt; l128X256MixRandom = RandomGeneratorFactory.of(&quot;Random&quot;);
+// 使用时间戳作为随机数种子
+RandomGenerator randomGenerator = l128X256MixRandom.create(System.currentTimeMillis());
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println(randomGenerator.nextInt(10));
+}
+</code></pre>
+<h2 id="jep-409密封类sealed-classes">JEP 409：密封类（Sealed Classes）</h2>
+<p>我们都知道，在 Java 中如果想让一个类不能被继承和修改，这时我们应该使用 <code>final</code> 关键字对类进行修饰。不过这种要么可以继承，要么不能继承的机制不够灵活，有些时候我们可能想让某个类可以被某些类型继承，但是又不能随意继承，是做不到的。Java 15 尝试解决这个问题，引入了 <code>sealed</code> 类，被 <code>sealed</code> 修饰的类可以指定子类。这样这个类就只能被指定的类继承。</p>
+<p>而且 <code>sealed</code> 修饰的类的机制具有传递性，它的子类必须使用指定的关键字进行修饰，且只能是 <code>final</code>、<code>sealed</code>、<code>non-sealed</code> 三者之一。</p>
+<p>示例：犬类（Dog）只能被牧羊犬（Collie）和田园犬（TuGou）继承，使用 <code>sealed</code> 关键字。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+public  sealed interface Dog permits Collie, TuGou {
+    //...
+}
+</code></pre>
+<p>牧羊犬（Collie）只能被边境牧羊犬（BorderCollie）继承。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+/**
+ * 牧羊犬
+ * @author www.wdbyte.com
+ */
+public sealed class Collie implements Dog permits BorderCollie {
+
+}
+</code></pre>
+<p>边境牧羊犬（BorderCollie）不能被继承，使用 <code>final</code> 关键字。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+/**
+ *
+ * @author www.wdbyte.com
+ */
+public final class BorderCollie extends Collie{
+}
+</code></pre>
+<p>田园犬（ToGou）可以被任意继承，使用 <code>non-sealed</code> 关键字。</p>
+<pre><code class="language-java">package com.wdbyte;
+
+/**
+ * @author niulang
+ */
+public non-sealed class TuGou implements Dog {
+}
+</code></pre>
+<h2 id="jep-415指定上下文的反序列化过滤器">JEP 415：指定上下文的反序列化过滤器</h2>
+<p>Java 中的序列化一直都是<br>
+非常重要的功能，如果没有序列化功能，Java 可能都不会占据开发语言的主导地位，序列化让远程处理变得容易和透明，同时也促进了 Java EE 的成功。</p>
+<p>但是 Java 序列化的问题也很多，它几乎会犯下所有的可以想象的错误，为开发者带来持续的维护工作。但是要说明的是序列化的概念是没有错的，把对象转换为可以在 JVM 之间自由传输，并且可以在另一端重新构建的能力是完全合理的想法，问题在于 Java 中的序列化设计存在风险，以至于爆出过很多和序列化相关的漏洞。</p>
+<p>反序列化危险的一个原因是，有时候我们不好验证将要进行反序列化的内容是否存在风险，而传入的数据流可以自由引用对象，很有可能这个数据流就是攻击者精心构造的恶意代码。</p>
+<p>所以，JEP 415 允许在反序列化时，通过一个过滤配置，来告知本次反序列化允许或者禁止操作的类，反序列化时碰到被禁止的类，则会反序列化失败。</p>
+<h3 id="反序列化示例">反序列化示例</h3>
+<p>假设 Dog 类中的 Poc 是恶意构造的类，但是正常反序列化是可以成功的。</p>
+<pre><code class="language-java">package com.wdbyte.java17;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+/**
+ * @author niulang
+ */
+public class JEP415 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Dog dog = new Dog(&quot;哈士奇&quot;);
+        dog.setPoc(new Poc());
+        // 序列化 - 对象转字节数组
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);) {
+            objectOutputStream.writeObject(dog);
+        }
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        // 反序列化 - 字节数组转对象
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        Object object = objectInputStream.readObject();
+        System.out.println(object.toString());
+    }
+}
+
+class Dog implements Serializable {
+    private String name;
+    private Poc poc;
+
+    public Dog(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Dog{&quot; + &quot;name='&quot; + name + '\'' + '}';
+    }
+		// get...set...
+}
+
+class Poc implements Serializable{
+
+}
+</code></pre>
+<p>输出结果：</p>
+<pre><code>Dog{name='哈士奇'}
+</code></pre>
+<h3 id="反序列化过滤器">反序列化过滤器</h3>
+<p>在 Java 17 中可以自定义反序列化过滤器，拦截不允许的类。</p>
+<pre><code class="language-java">package com.wdbyte.java17;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputFilter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+/**
+ * @author niulang
+ */
+public class JEP415 {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Dog dog = new Dog(&quot;哈士奇&quot;);
+        dog.setPoc(new Poc());
+        // 序列化 - 对象转字节数组
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);) {
+            objectOutputStream.writeObject(dog);
+        }
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        // 反序列化 - 字节数组转对象
+        ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
+        ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+        // 允许 com.wdbyte.java17.Dog 类，允许 java.base 中的所有类，拒绝其他任何类
+        ObjectInputFilter filter = ObjectInputFilter.Config.createFilter(
+                        &quot;com.wdbyte.java17.Dog;java.base/*;!*&quot;);
+        objectInputStream.setObjectInputFilter(filter);
+        Object object = objectInputStream.readObject();
+        System.out.println(object.toString());
+    }
+}
+
+class Dog implements Serializable {
+    private String name;
+    private Poc poc;
+
+    public Dog(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Dog{&quot; + &quot;name='&quot; + name + '\'' + '}';
+    }
+		// get...set...
+}
+
+class Poc implements Serializable{
+}
+</code></pre>
+<p>这时反序列化会得到异常。</p>
+<pre><code class="language-java">Exception in thread &quot;main&quot; java.io.InvalidClassException: filter status: REJECTED
+	at java.base/java.io.ObjectInputStream.filterCheck(ObjectInputStream.java:1412)
+	at java.base/java.io.ObjectInputStream.readNonProxyDesc(ObjectInputStream.java:2053)
+	at java.base/java.io.ObjectInputStream.readClassDesc(ObjectInputStream.java:1907)
+	....
+</code></pre>
+<h2 id="jep-373重新实现datagramsocket-api">JEP 373：重新实现DatagramSocket API</h2>
+<h2 id="jep374禁用和废弃偏向锁biased-locking">JEP374：禁用和废弃偏向锁（Biased Locking)</h2>
+<p>在之前，JVM 在处理同步操作，如使用 <code>synchronized</code> 同步时，有一套锁的升级机制，其中有一个锁机制就是偏向锁。然而通过目前的 Java 开发环境来看，使用这些被 <code>synchronized</code> 同步的类的机会并不多，如开发者更喜欢使用 <code>HashMap</code> 或者 <code>ArrayList</code> 而非 <code>HashTable</code> 和 <code>Vector</code>。</p>
+<p>即使换个角度，当初使用偏向锁是为了提高性能，如今看来性能提升的程度和使用次数都不太有用。而偏向锁的引入增加了 JVM 的复杂性。</p>
+<p>所以现在偏向锁被默认禁用，在不久的将来将会彻底删除</p>
+<h2 id="jep-411弃用-security-manager">JEP 411：弃用 Security Manager</h2>
+<p><strong>Security Manager</strong> 在 JDK 1.0 时就已经引入，但是它一直都不是保护服务端以及客户端 Java 代码的主要手段，为了 Java 的继续发展，决定弃用 Security Manager，在不久的未来进行删除。</p>
+<pre><code class="language-java">@Deprecated(since=&quot;17&quot;, forRemoval=true)
+public class SecurityManager {
+	// ...
+}
+</code></pre>
+<h1 id="其他">其他</h1>
+<h2 id="jep-189-shenandoah垃圾收集器">JEP 189: Shenandoah垃圾收集器</h2>
+<p>Java 12 增加了 Shenandoah 一个低停顿的垃圾收集器，它可以和 Java 应用程序中的执行线程同时进行，用来收集垃圾进行内容回收，这样就可以让停顿时间更少。</p>
+<p>更多关于 Shenandoah 垃圾收集器的介绍可以查看文档：<a href="https://wiki.openjdk.java.net/display/shenandoah/Main#Main-Overview">Shenandoah GC 介绍</a>。</p>
+<h2 id="zgc并发类卸载">ZGC并发类卸载</h2>
+<p>Z 垃圾收集器现在支持类卸载，通过卸载不使用的类来释放这些类相关的数据结构，从而减少应用程序的总体占用空间。因为是并发执行，所以不会停止 Java 应用程序线程的执行，也因此对 GC 的暂停时间影响微乎其微。默认情况下启用此功能，但可以使用命令行选项禁用 <code>-XX:-ClassUnloading</code>。</p>
+<h2 id="jep-334-jvm常量api">JEP 334: JVM常量API</h2>
+<p>在包 <code>java.lang.invoke.constant</code> 中定义了一系列的基于值的符号引用，可以用来描述各种可加载常量。可以更容易的对关键类文件和运行时构建的名义描述进行建模，特别是对那些从常量池中加载的常量，也让开发者可以更简单标准的处理可加载常量。</p>
+<h2 id="jep-314-默认使用类数据共享cds">JEP 314: 默认使用类数据共享(CDS)</h2>
+<p>CDS 可以让 JVM 在同一台机器或虚拟机上启动多个应用的速度速度大大增加。原理是在启动应用时共享一些类加载信息，这样启动新进程时就可以使用共享的数据。在 Java 12 之前此功能需要手动开启，Java 12 调整为默认开启。</p>
+<h2 id="jep-230-微基准套件">JEP 230: 微基准套件</h2>
+<p>Java 12 中添加一套新的基于 JMH 的基本的微基准测试套件。</p>
+<h2 id="jep-350动态cds存档">JEP 350：动态CDS存档</h2>
+<p>JVM 启动时有一步是需要在内存中加载类，而如果有多个 jar，加载第一个 jar 的速度是最慢的。这就延长了程序的启动时间，为了减少这个时间，<code>Java 10</code> 引入了应用程序类数据共享（CDS）机制，它可以把你想共享的类共享在程序之间，使不同的 Java 进程之间共享这个类来减少这个类占用的空间以及加载速度。不过 Java 10 中使用这个功能的步骤比较繁琐。<br>
+而 Java 13 中的 AppCDS，允许 Java 应用在程序执行结束时（如果 JVM 没有崩溃）进行动态存档；存储的内容包括所有加载的应用类型类和使用的类库，这些存储的类库本来并不存在于默认的 CDS 存档中。<br>
+使用这个功能非常简单，只需要在程序启动时增加启动参数 。</p>
+<pre><code class="language-shell"># ArchiveClassesAtExit，程序结束时动态存档
+bin/java -XX:ArchiveClassesAtExit=hello.jsa -cp hello.jar Hello
+# SharedArchiveFile，使用指定存档启动
+bin/java -XX:SharedArchiveFile=hello.jsa -cp hello.jar Hello
+</code></pre>
+<h2 id="jep-351zgc-归还未使用的内存实验性">JEP 351：ZGC 归还未使用的内存（实验性）</h2>
+<p>在 Java 13 之前，ZGC 虽然在清理内存时导致的停顿时间非常少，但是即使内存已经长时间没有使用，ZGC 也不会将内存返还给操作系统，这对那些十分关注内存占用的应用程序非常不友好。<br>
+比如：</p>
+<ul>
+<li>资源按使用量付费的云上容器环境。</li>
+<li>应用虽然长时间闲置，但是占用了内存，导致运行的其他程序内存紧张。<br>
+而新增的这个功能，可以让 ZGC 归还长时间没有使用的内存给操作系统，这对某些用户来说十分友好。</li>
+</ul>
+<h2 id="jep-345g1支持numa非统一内存访问">JEP 345：G1支持NUMA（非统一内存访问）</h2>
+<p>G1 收集器现在可以感知 <code>NUMA</code> 内存分配方式，以提高 G1 的性能，可以使用 <code>+XX:+UseNUMA</code> 启用这项功能。</p>
+<h2 id="jep-363-移除-cms-垃圾收集器">JEP 363： 移除 CMS 垃圾收集器</h2>
+<p>移除对 CMS（Concurrent Mark Sweep） 垃圾收集器的支持，其实早在 Java 9 就开始移除 CMS 垃圾收集器了，只不过在 Java 14 中被正式删除。</p>
+<h2 id="jep-364macos-上的-zgc实验性">JEP 364：macOS 上的 ZGC（实验性）</h2>
+<p>Java 11 在 Linux 上引入了 Z 垃圾收集器 (ZGC)，现在它可以移植到 macOS。</p>
+<h2 id="jep-365windows-上的-zgc实验性">JEP 365：Windows 上的 ZGC（实验性）</h2>
+<p>Java 11 在 Linux 上引入了 Z 垃圾收集器 (ZGC)，现在它可以移植到 Windows 上（版本大于 1803）。</p>
+<h2 id="jep-366弃用-parallelscavenge-serialold-gc-组合">JEP 366：弃用 ParallelScavenge + SerialOld GC 组合</h2>
+<h2 id="jep-377zgc可扩展低延迟垃圾收集器">JEP 377：ZGC可扩展低延迟垃圾收集器</h2>
+<p>ZGC 垃圾收集器在 Java 11 中被引入，但是因为收集器的复杂性，当初决定逐渐引入。然后不断的听取用户的反馈建议修复问题。而现在，已经很久没有收到用户的问题反馈了，ZGC 是时候投入正式使用阶段了。所以在 Java 15 中 ZGC 正式发布，可以使用下面的参数启用 ZGC。</p>
+<pre><code class="language-shell">$ java -XX:+UseZGC className
+</code></pre>
+<h2 id="jep-376zgc-并发线程堆栈处理">JEP 376：ZGC 并发线程堆栈处理</h2>
+<p>这次改动让 ZGC 线程堆栈处理从 <strong>安全点（Safepoints)</strong> 移动到并发阶段。</p>
+<p>如果你忘记了什么是 Safepoints，可以复习一下。</p>
+<p>我们都知道，在之前，需要 GC 的时候，为了进行垃圾回收，需要所有的线程都暂停下来，这个暂停的时间我们称为 <strong>Stop The World</strong>。</p>
+<p>而为了实现 STW 这个操作， JVM 需要为每个线程选择一个点停止运行，这个点就叫做<strong>安全点（Safepoints）</strong>。</p>
+<h2 id="支持unicode-11">支持Unicode 11</h2>
+<p>在 Java 11 支持了 Unicode 10 之后， Java 12 支持了 Unicode 11，支持操作更多的表情、符号。</p>
+<h2 id="jep-392打包工具">JEP 392：打包工具</h2>
+<p>在 Java 14 中，引入了打包工具，命令是 <code>jpackage</code>，使用 <code>jpackage</code> 命令可以把 JAR 包打包成不同操作系统支持的软件格式。</p>
+<pre><code class="language-shell">jpackage --name myapp --input lib --main-jar main.jar --main-class myapp.Main
+</code></pre>
+<p>常见平台格式如下：</p>
+<ol>
+<li>Linux: <code>deb</code> and <code>rpm</code></li>
+<li>macOS: <code>pkg</code> and <code>dmg</code></li>
+<li>Windows: <code>msi</code> and <code>exe</code></li>
+</ol>
+<p>要注意的是，<code>jpackage</code> 不支持交叉编译，也就是说在 windows 平台上是不能打包成 macOS 或者 Linux 系统的软件格式的。</p>
+<p>下面是一个例子，把一个简单的 Java Swing 程序打包成当前操作系统支持的软件格式，然后安装到当前电脑。</p>
+<p>编写 Java 代码</p>
+<pre><code class="language-java">import javax.swing.*;
+import java.awt.*;
+
+public class JEP392 {
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame(&quot;Hello World Java Swing&quot;);
+        frame.setMinimumSize(new Dimension(800, 600));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        JLabel lblText = new JLabel(&quot;Hello World!&quot;, SwingConstants.CENTER);
+        frame.getContentPane().add(lblText);
+        frame.pack();
+        frame.setVisible(true);
+
+    }
+}
+</code></pre>
+<p>编译后，创建一个 JAR 文件。</p>
+<pre><code class="language-shell">$ javac JEP392.java
+$ java JEP392.java
+$ jar cvf JEP392.jar JEP392.class
+</code></pre>
+<p>将生成的 JEP392.jar 打包到符合当前平台的软件包中。</p>
+<pre><code class="language-shell">$ ~/develop/jdk-16.0.1.jdk/Contents/Home/bin/jpackage -i . -n JEP392 --main-jar hello.jar --main-class JEP392
+$ ll
+-rw-r--r--@ 1 darcy  staff    50M 10 28 20:34 JEP392-1.0.dmg
+-rw-r--r--  1 darcy  staff   864B 10 28 20:22 JEP392.class
+-rw-r--r--  1 darcy  staff   1.0K 10 28 20:30 JEP392.jar
+-rw-r--r--  1 darcy  staff   588B 10 28 20:22 JEP392.java
+</code></pre>
+<p><code>ll</code> 后显示的 <code>JEP392-1.0.dmg</code>（我用的 MacOS ，所以格式是 dmg）就是打包后的结果。</p>
+<p>不同的系统安装位置不同：</p>
+<ul>
+<li>Linux： <code>/opt</code></li>
+<li>MacOS ： <code>/Applications</code></li>
+<li>Windows: <code>C:\Program Files\</code></li>
+</ul>
+<h2 id="jep-372移除nashorn-javascript引擎">JEP 372：移除Nashorn JavaScript引擎</h2>
+<p>Nashorn JavaScript 引擎在 Java 8 中被引入，在 Java 11 中被标记为废弃。由于 ECMAScript 语言发展很快，维护 Nashorn JavaScript 的成本过于高昂，在 Java 15 中被彻底删除。</p>
+<h2 id="jep-381-删除solaris和sparc端口">JEP 381: 删除Solaris和SPARC端口</h2>
+<h2 id="jep-385废弃rmi激活机制">JEP 385:废弃RMI激活机制</h2>
+<h2 id="jep-347-启用c14语言特性">JEP 347: 启用C++14语言特性</h2>
+<p>这项更新和 Java 开发者关系不太密切，JEP 347 允许 在 JDK 的 C++ 源码中使用 C++ 14 的语言特性，并且给出了哪些特性可以在 HotSpot 代码中使用的具体说明。</p>
+<h2 id="jep-357">JEP 357</h2>
+<p>在此之前，OpenJDK 源代码是使用版本管理工具 Mercurial 进行管理的，你也可以在 <a href="http://hg.openjdk.java.net/">http://hg.openjdk.java.net/</a>查看 OpenJDK 的源代码历史版本。</p>
+<p>但是现在迁移到了 GIt ，主要原因如下：</p>
+<ol>
+<li>Mercurial 生成的版本控制元数据过大。</li>
+<li>Mercurial 相关的开发工具比较少，而 Git 几乎在所有的主流 IDE 中已经无缝集成。</li>
+<li>Mercurial 相关的服务比较少，无论是自建托管，还是服务托管。</li>
+</ol>
+<p>为了优雅的迁移到 Git，OpenJDK 做了如下操作。</p>
+<ol>
+<li>将所有的单存储库 OpenJDK 项目从 Mercurial 迁移到 Git。</li>
+<li>保留所有的版本控制历史，也包括 Tag。</li>
+<li>根据 Git 的最佳实践重新格式化提交的消息。</li>
+<li>创建了一个工具用来在 Mercurial 和 Git 哈希之间进行转换。</li>
+</ol>
+<h2 id="jep-369迁移到-github">JEP 369：迁移到 GitHub</h2>
+<p>和 JEP 357 从 Mercurial 迁移到 Git 的改变一致，在把版本管理迁移到 Git 之后，选择了在 GitHub 上托管 OpenJDK 社区的 Git 仓库。不过只对 JDK 11 以及更高版本 JDK 进行了迁移。</p>
+<h2 id="jep-380unix-域套接字通道">JEP 380：Unix 域套接字通道</h2>
+<p>添加 UnixDomainSocketAddress.java 类用于支持 Unix 域套接字通道。</p>
+<p>添加 Unix-domain socket 到 SocketChannel 和 ServerSocketChannel API 中。</p>
+<p>添加枚举信息 java.net.StandardProtocolFamily.UNIX。</p>
+<h2 id="jep-386移植-alpine-linux">JEP 386：移植 Alpine Linux</h2>
+<p><strong>Apine Linux</strong> 是一个独立的、非商业的 Linux 发行版，它十分的小，一个容器需要不超过 8MB 的空间，最小安装到磁盘只需要大约 130MB 存储空间，并且十分的简单，同时兼顾了安全性。</p>
+<p>此提案将 JDK 移植到了 Apline Linux，由于 Apline Linux 是基于 musl lib 的轻量级 Linux 发行版，因此其他 x64 和 AArch64 架构上使用 musl lib 的 Linux 发行版也适用。</p>
+<h2 id="jep-387更好的-metaspace">JEP 387：更好的 Metaspace</h2>
+<p>自从引入了 Metaspace 以来，根据反馈，Metaspace 经常占用过多的堆外内存，从而导致内存浪费，现在可以更及时地将未使用的 HotSpot class-metaspace 内存<em>返还</em>给操作系统，从而减少 Metaspace 的占用空间，并优化了 Metaspace 代码以降低后续的维护成本。</p>
+<h2 id="jep-388移植-windowsaarch64">JEP 388：移植 Windows/AArch64</h2>
+<p>将 JDK 移植到 Windows/AArch64 架构上，Windows/AArch64 已经是终端用户市场的热门需求。</p>
+<h2 id="jep-403更强的-jdk-内部封装">JEP 403：更强的 JDK 内部封装</h2>
+<p>为了提高 JDK 的安全性，使 <code>--illegal-access</code> 选项的默认模式从允许更改为拒绝。通过此更改，JDK 的内部包和 API（<a href="https://openjdk.java.net/jeps/260#Description">关键内部 API</a>除外）将不再默认打开。</p>
+<p>但是在 Java 17 中，除了 <code>sun.misc.Unsafe</code> ，使用 <code>--illegal-access</code> 命令也不能打开 JDK 内部的强封装模式了，除了 <code>sun.misc.Unsafe</code> API .</p>
+<p>在 Java 17 中使用 <code>--illegal-access</code> 选项将会得到一个命令已经移除的警告。</p>
+<pre><code class="language-shell">➜  bin ./java -version
+openjdk version &quot;17&quot; 2021-09-14
+OpenJDK Runtime Environment (build 17+35-2724)
+OpenJDK 64-Bit Server VM (build 17+35-2724, mixed mode, sharing)
+➜  bin ./java --illegal-access=warn
+OpenJDK 64-Bit Server VM warning: Ignoring option --illegal-access=warn; support was removed in 17.0
+</code></pre>
+<h2 id="jep-382使用新的-macos-渲染库">JEP 382：使用新的 macOS 渲染库</h2>
+<p>macOS 为了提高图形的渲染性能，在 2018 年 9 月抛弃了之前的 OpenGL 渲染库 ，而使用了 Apple Metal 进行代替。Java 17 这次更新开始支持 Apple Metal，不过对于 API 没有任何改变，这一些都是内部修改。</p>
+<h2 id="jep-391支持-macosaarch64-架构">JEP 391：支持 macOS/AArch64 架构</h2>
+<p>起因是 Apple 在 2020 年 6 月的 WWDC 演讲中宣布，将开启一项长期的将 Macintosh 计算机系列从 x64 过度到 AArch64 的长期计划，因此需要尽快的让 JDK 支持 macOS/AArch64 。</p>
+<h2 id="jep-398删除已弃用的-applet-api">JEP 398：删除已弃用的 Applet API</h2>
+<p>Applet 是使用 Java 编写的可以嵌入到 HTML 中的小应用程序，嵌入方式是通过普通的 HTML 标记语法，由于早已过时，几乎没有场景在使用了。</p>
+<p>示例：嵌入 Hello.class</p>
+<pre><code class="language-html">&lt;applet code=&quot;Hello.class&quot; height=200 width=200&gt;&lt;/applet&gt;
+</code></pre>
+<p>Applet API 在 Java 9 时已经标记了废弃，现在 Java 17 中将彻底删除。</p>
+<h2 id="jep-407移除-rmi-activation">JEP 407：移除 RMI Activation</h2>
+<p>移除了在 JEP 385 中被标记废除的 RMI（Remote Method Invocation）Activation，但是 RMI 其他部分不会受影响。</p>
+<h2 id="jep-410移除实验性的-aot-和-jit-编译器">JEP 410：移除实验性的 AOT 和 JIT 编译器</h2>
+<p>在 Java 9 的 JEP 295 中，引入了实验性的提前编译 jaotc 工具，但是这个特性自从引入依赖用处都不太大，而且需要大量的维护工作，所以在 Java 17 中决定删除这个特性。</p>
+<p>主要移除了三个 JDK 模块：</p>
+<ol>
+<li>jdk.aot - jaotc 工具。</li>
+<li>Jdk.internal.vm.compiler - Graal 编译器。</li>
+<li>jdk.internal.vm.compiler.management</li>
+</ol>
+<p>同时也移除了部分与 AOT 编译相关的 HotSpot 代码：</p>
+<ol>
+<li><code>src/hotspot/share/aot</code> — dumps and loads AOT code</li>
+<li>Additional code guarded by <code>#if INCLUDE_AOT</code></li>
+</ol>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              <article class="prev grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://alexritian.github.io/post-images/bu-shu-chatwoot-dao-kubernetes.png');"></div>
+                 <a href="https://alexritian.github.io/post/bu-shu-chatwoot-dao-kubernetes/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2023-01-03">2023-01-03</time>
+                  <h4 class="title white no-margin">部署Chatwoot到kubernetes</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://alexritian.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://alexritian.github.io/post-images/k8s-da-guai-sheng-ji-zhi-lu-di-yi-guan-da-jian-yi-ge-jian-dan-de.png');"></div>
+                 <a href="https://alexritian.github.io/post/k8s-da-guai-sheng-ji-zhi-lu-di-yi-guan-da-jian-yi-ge-jian-dan-de/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2022-11-07">2022-11-07</time>
+                  <h4 class="title white no-margin">k8s打怪升级之路---第一关，搭建一个简单的</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://alexritian.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div id="comments" class="bg-white hosted ">
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              </div>
+              <div class="clear"></div>
+            
+
+            </div>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang.jpeg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-17">2023-02-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/">RASA初体验---构建一个人工智障</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/shi-yong-docker-qi-dong-tansorflow.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-14">2023-02-14</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/">使用Docker启动TansorFlow</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/da-jian-jian-dan-de-openstack-ti-yan-huan-jing.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-01">2023-02-01</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/">搭建简单的openstack体验环境</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                      <a href="https://alexritian.github.io/tag/-Vhn_CHS9/" class="ctag ctag-0 ctag--Vhn_CHS9" aria-label="">rasa</a>
+                    
+                      <a href="https://alexritian.github.io/tag/4kwS6SyHpm/" class="ctag ctag-1 ctag-4kwS6SyHpm" aria-label="">chatbot</a>
+                    
+                      <a href="https://alexritian.github.io/tag/NZso5ulAf/" class="ctag ctag-2 ctag-NZso5ulAf" aria-label="">ai</a>
+                    
+                      <a href="https://alexritian.github.io/tag/P_RFhSqfsX/" class="ctag ctag-3 ctag-P_RFhSqfsX" aria-label="">tansorflow</a>
+                    
+                      <a href="https://alexritian.github.io/tag/cW0xTd3xwm/" class="ctag ctag-4 ctag-cW0xTd3xwm" aria-label="">docker</a>
+                    
+                      <a href="https://alexritian.github.io/tag/BeCMZQC7X/" class="ctag ctag-5 ctag-BeCMZQC7X" aria-label="">openstack</a>
+                    
+                      <a href="https://alexritian.github.io/tag/XeOQWp44KJ/" class="ctag ctag-6 ctag-XeOQWp44KJ" aria-label="">linux</a>
+                    
+                      <a href="https://alexritian.github.io/tag/qUEJ3D9at/" class="ctag ctag-7 ctag-qUEJ3D9at" aria-label="">k8s</a>
+                    
+                      <a href="https://alexritian.github.io/tag/ZVIZwxZ2r/" class="ctag ctag-8 ctag-ZVIZwxZ2r" aria-label="">ubuntu</a>
+                    
+                      <a href="https://alexritian.github.io/tag/0EAfXnwKzj/" class="ctag ctag-9 ctag-0EAfXnwKzj" aria-label="">chrome</a>
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://alexritian.github.io/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Note My Life</a></h4>
+                    <p class="founder">随便写写，胡乱记记</p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="logo">
+          <a href="https://alexritian.github.io"><img src="/media/images/custom-footerLogo.jpeg" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          ©2019 共 10 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
+        
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    
+    <div class="clear"></div>
+
+        
+
+      
+    <script src="https://alexritian.github.io/media/js/functions-post.js"></script>
+
+    </div>
+    <!-- end: #wrapper -->
+  </body>
+</html>

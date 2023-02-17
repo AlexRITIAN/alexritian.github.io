@@ -1,0 +1,487 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>搭建简单的openstack体验环境 | Note My Life</title>
+<meta name="description" content="随便写写，胡乱记记" />
+<link rel="shortcut icon" href="https://alexritian.github.io/favicon.ico">
+<link rel="stylesheet" href="https://alexritian.github.io/styles/main.css">
+
+<script src="https://alexritian.github.io/media/js/jquery.min.js"></script>
+<script src="https://alexritian.github.io/media/js/masonry.pkgd.min.js"></script>
+<script src="https://alexritian.github.io/media/js/aos.js"></script>
+<script src="https://alexritian.github.io/media/js/pace.min.js"></script>
+<script src="https://alexritian.github.io/media/js/view-image.min.js"></script>
+<script src="https://alexritian.github.io/media/js/jquery.magnific-popup.min.js"></script>
+<script src="https://alexritian.github.io/media/js/functions.js"></script>
+    <meta name="referrer" content="never">
+    <meta name="description" content="使用 kolla-ansible 搭建一个极简的openstack环境，体验一下openstack。本文是参考 kolla-ansible官方文档 进行搭建
+
+需要提前了解 docker 和 ansible 。
+准备
+一台物理机或者虚拟机，..." />
+    <meta name="keywords" content="openstack,linux" />
+    <script src="https://alexritian.github.io/media/js/waterfall.min.js"></script>
+    <script src="https://alexritian.github.io/media/js/prism.min.js"></script>
+  </head>
+  <body>
+            <header id="header" class="grid-container">
+        <!-- start: .menu-wrapper -->
+        <div class="menu-mobile"> 
+          <i class="fa fa-reorder"></i>
+        </div>
+        <div class="menu-wrapper">
+          <div class="">
+            <div class="logo">
+              <a href="https://alexritian.github.io"><img src="/media/images/custom-headerLogo.jpeg" alt=""></a>
+            </div>
+            <!-- start: .main-nav -->
+
+            <nav class="main-nav grid-container grid-parent">
+              <ul id="menu-header" class="menu gradient-effect">
+                <li class=""><a href="https://alexritian.github.io" class="menu">首页</a></li>
+                
+                  <li class="" >
+                    <a href="/" class="menu">
+                      首页
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/archives" class="menu">
+                      归档
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/tags" class="menu">
+                      标签
+                    </a>
+                  </li>
+                
+                  <li class="" >
+                    <a href="/post/about" class="menu">
+                      关于
+                    </a>
+                  </li>
+                
+                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
+              </ul>
+            </nav>
+            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
+            <!-- end: .main-nav -->
+            <div class="clear"></div>
+            <div class="border hide-on-tablet hide-on-mobile"></div>
+          </div>    
+          <div class="clear"></div>
+        </div>
+        <!-- end: .menu-wrapper -->
+        <div class="clear"></div>
+      </header>
+      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
+        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
+          <div class="search-wrapper section">
+            <form id="gridea-search-form" data-update="1676619208643" action="/search/index.html" class="search-form" _lpchecked="1">
+              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
+              <button type="submit" class="submit" aria-label="Submit">
+                <i class="fa fa-search-line"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
+
+        <div class="center content">
+          <div class="featured-image cover" style="background-image: url('https://alexritian.github.io/post-images/da-jian-jian-dan-de-openstack-ti-yan-huan-jing.png');">
+            <div class="meta top"> 
+              <time class="meta-info" style="float:left;" datetime="2023-02-01"><i class="fa fa-calendar"></i><span class="lately">16 天前</span></time>
+              
+            </div>
+            <div class="info">
+              <div class="tags ">
+                
+                      <a href="https://alexritian.github.io/tag/BeCMZQC7X/" class="ctag ctag-0 ctag-BeCMZQC7X" aria-label="">openstack</a>
+                    
+                      <a href="https://alexritian.github.io/tag/XeOQWp44KJ/" class="ctag ctag-1 ctag-XeOQWp44KJ" aria-label="">linux</a>
+                    
+              </div>
+              <h1 class="title ularge white bold">搭建简单的openstack体验环境</h1>
+            </div>
+          </div>
+        </div>  
+
+        <div class="epcl-page-wrapper">
+          <div class="left-content grid-70 np-mobile">
+            <article class="main-article post">
+              <section class="post-content">
+                <div class="text">
+                  <p>使用 <code>kolla-ansible</code> 搭建一个极简的openstack环境，体验一下openstack。本文是参考 <a href="https://docs.openstack.org/kolla-ansible/latest/user/quickstart.html">kolla-ansible官方文档</a> 进行搭建</p>
+<!-- more -->
+<p>需要提前了解 <strong>docker</strong> 和 <strong>ansible</strong> 。</p>
+<h1 id="准备">准备</h1>
+<p>一台物理机或者虚拟机，本着节约资源的目的是用一台机器来搭建环境</p>
+<ul>
+<li>2 network interfaces // 需要一个网卡绑定IP，另一个不绑定IP</li>
+<li>8GB main memory</li>
+<li>40GB disk space</li>
+<li>2 IP address // 其中一个先不绑定到网卡上，预留出来就好</li>
+</ul>
+<h1 id="安装依赖">安装依赖</h1>
+<blockquote>
+<p>[!tip]<br>
+本次使用的是ubuntu 20.04操作系统，其他系统请使用相应的包管理器进行依赖安装</p>
+</blockquote>
+<pre><code class="language-shell">sudo apt update
+sudo apt install git python3-dev libffi-dev gcc libssl-dev
+</code></pre>
+<h2 id="使用虚拟环境">使用虚拟环境</h2>
+<blockquote>
+<p>[!tip]<br>
+官方推荐使用虚拟环境进行操作，避免依赖包和系统依赖包冲突<br>
+不使用虚拟环境可跳过此步骤</p>
+</blockquote>
+<ol>
+<li>安装虚拟环境</li>
+</ol>
+<pre><code class="language-shell">sudo apt install python3-venv
+</code></pre>
+<ol start="2">
+<li>创建并激活虚拟环境</li>
+</ol>
+<pre><code class="language-shell">python3 -m venv /path/to/venv
+source /path/to/venv/bin/activate
+</code></pre>
+<ol start="3">
+<li>更新 pip</li>
+</ol>
+<pre><code class="language-shell">pip install -U pip
+</code></pre>
+<ol start="4">
+<li>安装 ansible</li>
+</ol>
+<pre><code class="language-shell">pip install 'ansible&gt;=4,&lt;6'
+</code></pre>
+<h1 id="安装-kolla-ansible">安装 kolla-ansible</h1>
+<blockquote>
+<p>[!tip]<br>
+如果未使用虚拟环境，请替换命令中的path</p>
+</blockquote>
+<ol>
+<li>install kolla-ansible</li>
+</ol>
+<pre><code class="language-shell">pip install git+https://opendev.org/openstack/kolla-ansible@master
+</code></pre>
+<blockquote>
+<p>[!warning]<br>
+koll-ansible 15.0.0 不支持 Rocky linux 8 , 必须是Rocky linux 9<br>
+如果是使用Rocky linux 8 , 可以通过下列命令安装低版本的 kolla-ansible。</p>
+<pre><code class="language-shell">pip install kolla-ansible==14.7.0
+</code></pre>
+</blockquote>
+<ol start="2">
+<li>创建 <code>/etc/kolla</code> 目录</li>
+</ol>
+<pre><code class="language-shell">sudo mkdir -p /etc/kolla
+sudo chown $USER:$USER /etc/kolla
+</code></pre>
+<ol start="3">
+<li>复制配置文件到 <code>/etc/kolla</code> 目录</li>
+</ol>
+<pre><code class="language-shell">cp -r /path/to/venv/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
+</code></pre>
+<ol start="4">
+<li>复制 <code>all-in-one</code> inventory 文件到操作目录</li>
+</ol>
+<pre><code class="language-shell">cp /path/to/venv/share/kolla-ansible/ansible/inventory/all-in-one .
+</code></pre>
+<blockquote>
+<p>[!note]<br>
+操作目录可以随便指定<br>
+all-in-one 默认是配置的loaclhost。会在当前机器搭建环境。 如果想在其他机器搭建环境，需要修改 <code>all-in-one</code> 中的hosts为服务器 ip，如果root禁止ssh登陆，需要指定 username</p>
+</blockquote>
+<h1 id="安装-anisble-galaxy-依赖">安装 Anisble Galaxy 依赖</h1>
+<pre><code class="language-shell">kolla-ansible install-deps
+</code></pre>
+<h1 id="准备初始化配置">准备初始化配置</h1>
+<h2 id="生成-kolla-password">生成 kolla password</h2>
+<pre><code class="language-shell">kolla-genpwd
+</code></pre>
+<h2 id="修改-gloableyml-配置文件">修改 <code>gloable.yml</code> 配置文件</h2>
+<ol>
+<li>默认镜像</li>
+</ol>
+<pre><code class="language-shell">kolla_base_distro: &quot;rocky&quot;
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+可选值如下</p>
+<ul>
+<li>CentOS Stream (<code>centos</code>)</li>
+<li>Debian (<code>debian</code>)</li>
+<li>Rocky (<code>rocky</code>)</li>
+<li>Ubuntu (<code>ubuntu</code>)</li>
+</ul>
+</blockquote>
+<ol start="2">
+<li>网络</li>
+</ol>
+<pre><code class="language-shell">network_interface: &quot;eth0&quot;
+neutron_external_interface: &quot;eth1&quot;
+kolla_internal_vip_address: &quot;10.1.0.250&quot;
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+<code>network_interface</code> - 需要填写绑定了IP地址的网卡的网口名字<br>
+<code>neutron_external_interface</code> - 需要填写未绑定IP地址的网卡的网口名字<br>
+<code>kolla_internal_vip_address</code> - 需要填写提前预留的 IP地址，不能是服务器绑定的IP</p>
+</blockquote>
+<ol start="3">
+<li>启用服务<br>
+因为是极简安装，全部使用默认的配置</li>
+</ol>
+<h1 id="部署openstack">部署openstack</h1>
+<ol>
+<li>部署 bootstrap-server和kolla依赖</li>
+</ol>
+<pre><code class="language-shell">kolla-ansible -i ./all-in-one bootstrap-servers
+</code></pre>
+<ol start="2">
+<li>校验</li>
+</ol>
+<pre><code class="language-shell">kolla-ansible -i ./all-in-one prechecks
+</code></pre>
+<ol start="3">
+<li>部署openstack</li>
+</ol>
+<pre><code class="language-shell">kolla-ansible -i ./all-in-one deploy
+</code></pre>
+<h1 id="使用-openstack">使用 openstack</h1>
+<ol>
+<li>安装 openstack CLI</li>
+</ol>
+<pre><code class="language-shell">pip install python-openstackclient -c https://releases.openstack.org/constraints/upper/master
+</code></pre>
+<ol start="2">
+<li>生成 admin配置文件</li>
+</ol>
+<pre><code class="language-shell">kolla-ansible post-deploy
+</code></pre>
+<blockquote>
+<p>[!tip]<br>
+文件会生成在 <code>/etc/kolla/admin-openrc.sh</code> 这个脚本中有admin的帐号和密码。</p>
+</blockquote>
+<ol start="3">
+<li>访问 openstack dashbord， <code>http://kolla_internal_vip_address/</code></li>
+</ol>
+<p>搞定！！！</p>
+
+                </div>
+                <div class="clear"></div>
+              </section>
+            </article>
+            <div class="clear"></div>
+
+            <section class="related section">
+              
+              <article class="prev grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://alexritian.github.io/post-images/shi-yong-docker-qi-dong-tansorflow.png');"></div>
+                 <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2023-02-14">2023-02-14</time>
+                  <h4 class="title white no-margin">使用Docker启动TansorFlow</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://alexritian.github.io/media/images/left-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+              
+              <article class="next grid-50 tablet-grid-50 grid-parent">
+                <div class="thumb cover lazy loaded" style="background-image: url('https://alexritian.github.io/post-images/k8s-da-guai-sheng-ji-zhi-lu-di-er-guan-an-zhuang-jian-kong-zu-jian-metrics-server.png');"></div>
+                 <a href="https://alexritian.github.io/post/k8s-da-guai-sheng-ji-zhi-lu-di-er-guan-an-zhuang-jian-kong-zu-jian-metrics-server/" class="full-link"></a>
+                 <div class="info">
+                  <time datetime="2023-01-28">2023-01-28</time>
+                  <h4 class="title white no-margin">k8s打怪升级之路---第二关,安装监控组件---metrics-server</h4>
+                </div>
+                 <span class="epcl-button red">
+                  <img src="https://alexritian.github.io/media/images/right-arrow.svg" width="15" alt="Left Arrow">
+                </span>
+                <div class="overlay"></div>
+              </article>
+              
+
+                <div class="clear"></div>
+            </section>
+
+              <div class="clear"></div>
+              
+            
+              <div id="comments" class="bg-white hosted ">
+                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
+              </div>
+              <div class="clear"></div>
+            
+
+            </div>
+          </div>
+      </main>
+
+          <footer id="footer" class="grid-container">
+        <div class="widgets row gradient-effect">
+            <div class="default-sidebar border-effect">
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
+                  <h4 class="widget-title title white bordered">最新文章</h4>
+                  
+                  
+                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang.jpeg');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-17">2023-02-17</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/rasa-chu-ti-yan-gou-jian-yi-ge-ren-gong-zhi-zhang/">RASA初体验---构建一个人工智障</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/shi-yong-docker-qi-dong-tansorflow.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-14">2023-02-14</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/shi-yong-docker-qi-dong-tansorflow/">使用Docker启动TansorFlow</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
+                    <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/" class="thumb hover-effect">
+                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('https://alexritian.github.io/post-images/da-jian-jian-dan-de-openstack-ti-yan-huan-jing.png');"></span>
+                    </a>
+                    <div class="info gradient-effect">
+                      <time datetime="2023-02-01">2023-02-01</time>
+                      <h4 class="title usmall">
+                        <a href="https://alexritian.github.io/post/da-jian-jian-dan-de-openstack-ti-yan-huan-jing/">搭建简单的openstack体验环境</a>
+                      </h4>
+                    </div>
+                    <div class="clear"></div>
+                  </article>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
+                  <h4 class="widget-title title white bordered">标签云</h4>
+                  <div class="tagcloud">
+                    
+                      <a href="https://alexritian.github.io/tag/-Vhn_CHS9/" class="ctag ctag-0 ctag--Vhn_CHS9" aria-label="">rasa</a>
+                    
+                      <a href="https://alexritian.github.io/tag/4kwS6SyHpm/" class="ctag ctag-1 ctag-4kwS6SyHpm" aria-label="">chatbot</a>
+                    
+                      <a href="https://alexritian.github.io/tag/NZso5ulAf/" class="ctag ctag-2 ctag-NZso5ulAf" aria-label="">ai</a>
+                    
+                      <a href="https://alexritian.github.io/tag/P_RFhSqfsX/" class="ctag ctag-3 ctag-P_RFhSqfsX" aria-label="">tansorflow</a>
+                    
+                      <a href="https://alexritian.github.io/tag/cW0xTd3xwm/" class="ctag ctag-4 ctag-cW0xTd3xwm" aria-label="">docker</a>
+                    
+                      <a href="https://alexritian.github.io/tag/BeCMZQC7X/" class="ctag ctag-5 ctag-BeCMZQC7X" aria-label="">openstack</a>
+                    
+                      <a href="https://alexritian.github.io/tag/XeOQWp44KJ/" class="ctag ctag-6 ctag-XeOQWp44KJ" aria-label="">linux</a>
+                    
+                      <a href="https://alexritian.github.io/tag/qUEJ3D9at/" class="ctag ctag-7 ctag-qUEJ3D9at" aria-label="">k8s</a>
+                    
+                      <a href="https://alexritian.github.io/tag/ZVIZwxZ2r/" class="ctag ctag-8 ctag-ZVIZwxZ2r" aria-label="">ubuntu</a>
+                    
+                      <a href="https://alexritian.github.io/tag/0EAfXnwKzj/" class="ctag ctag-9 ctag-0EAfXnwKzj" aria-label="">chrome</a>
+                    
+                  </div>
+                  <div class="clear"></div>
+                </section>
+              </div>
+
+              <div class="grid-33 tablet-grid-50 mobile-grid-100">
+                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
+                  <h4 class="widget-title title white bordered">关于我</h4>
+                  <div class="avatar">
+                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://alexritian.github.io/images/avatar.png);"></span></a>
+                  </div>
+                  <div class="info">
+                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Note My Life</a></h4>
+                    <p class="founder">随便写写，胡乱记记</p>
+                    <div class="social">
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                        
+                      
+                    </div> 
+                  </div>
+                  <div class="clear"></div>
+                  </section>
+              </div>
+
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="logo">
+          <a href="https://alexritian.github.io"><img src="/media/images/custom-footerLogo.jpeg" alt=""></a>
+        </div>
+        <p class="published border-effect">
+          ©2019 共 10 篇文章
+          <br/>
+          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
+        </p>
+        
+        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
+          <i class="fa fa-arrow"></i>
+        </a>
+    </footer>
+    
+    <div class="clear"></div>
+
+        
+
+      
+    <script src="https://alexritian.github.io/media/js/functions-post.js"></script>
+
+    </div>
+    <!-- end: #wrapper -->
+  </body>
+</html>
