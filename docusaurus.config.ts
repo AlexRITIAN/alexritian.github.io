@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 import { GiscusConfig } from './src/components/Comment'
 
@@ -29,7 +29,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'zh-Hans',
-    locales: ['zh-Hans','en'],
+    locales: ['zh-Hans', 'en'],
     path: 'i18n'
   },
 
@@ -66,7 +66,7 @@ const config: Config = {
           position: 'left',
           label: 'Docs',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/AlexRITIAN',
           label: 'GitHub',
@@ -81,15 +81,35 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      magicComments: [
+        {
+          className: 'theme-code-block-highlighted-line',
+          line: 'highlight-next-line',
+          block: { start: 'highlight-start', end: 'highlight-end' },
+        },
+        {
+          className: 'code-block-error-line',
+          line: 'This will error',
+        },
+      ],
     },
     giscus: {
-      repo: 'AlexRITIAN/mysite',
-      repoId: 'R_kgDOLvOX1w',
+      repo: 'AlexRITIAN/alexritian.github.io',
+      repoId: 'R_kgDOGl6flg',
       category: 'General',
-      categoryId: 'DIC_kwDOLvOX184Cf3zS',
+      categoryId: 'DIC_kwDOGl6fls4Cf37N',
       theme: 'light',
       darkTheme: 'dark_dimmed',
     } satisfies Partial<GiscusConfig>,
+    colorMode: {
+      defaultMode: 'dark', // 设置默认模式为 Dark 模式
+      disableSwitch: true, // 禁用模式切换
+      respectPrefersColorScheme: false, // 不尊重用户系统的颜色模式
+    },
+    font: {
+      bodyFontFamily: ["JetBrains Mono", "LXGW WenKai Mono"],
+      headerFontFamily: ["JetBrains Mono", "LXGW WenKai Mono"],
+    },
   } satisfies Preset.ThemeConfig,
   plugins: [
     // require.resolve("@cmfcmf/docusaurus-search-local"),
