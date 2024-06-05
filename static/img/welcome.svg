@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024">
+  <style>
+    .rocket { fill: url(#rocket-gradient); }
+    .neon { fill: #fff; font-family: Arial, sans-serif; font-size: 100px; font-weight: bold; text-anchor: middle; }
+    @keyframes moveRocket {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
+    .animateRocket {
+      animation: moveRocket 2s infinite;
+    }
+  </style>
+  <defs>
+    <linearGradient id="rocket-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <g class="animateRocket">
+    <!-- Existing SVG content will be placed here -->
+    <path d="M0 0 C337.92 0 675.84 0 1024 0 C1024 337.92 1024 675.84 1024 1024 C686.08 1024 348.16 1024 0 1024 C0 686.08 0 348.16 0 0 Z " fill="#010319" transform="translate(0,0)"/>
+    <path d="M0 0 C3.5 1.5 3.5 1.5 6 3 C6 3.66 6 4.32 6 5 C6.66 5 7.32 5 8 5 C8.33 5.99 8.66 6.98 9 8 C9.680625 8.495 10.36125 8.99 11.0625 9.5 C11.701875 9.995 12.34125 10.49 13 11 C13 11.99 13 12.98 13 1...
+  </g>
+  <text x="512" y="850" class="neon">MOONLIT</text>
+</svg>

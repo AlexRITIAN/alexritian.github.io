@@ -1,0 +1,124 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #1ba6a7;
+  --ifm-color-primary-dark: #189596;
+  --ifm-color-primary-darker: #178d8e;
+  --ifm-color-primary-darkest: #137475;
+  --ifm-color-primary-light: #1eb7b8;
+  --ifm-color-primary-lighter: #1fbfc0;
+  --ifm-color-primary-lightest: #23d8d9;
+  --ifm-footer-background-color: #2b3137;
+  --ifm-code-font-size: 95%;
+  --ifm-line-height-base: 1.5;
+  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+  --ifm-font-family-monospace: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --docusaurus-highlighted-code-line-bg: rgb(235, 235, 235);
+  --cyberpunk-primary-color: #0ff; /* 亮蓝色 */
+  --cyberpunk-secondary-color: #f72585; /* 深蓝色 */
+  --cyberpunk-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+  --cyberpunk-secondary-shadow: 0 0 5px #f72585, 0 0 10px #f72585, 0 0 20px #f72585, 0 0 40px #f72585;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #ff00ff;
+  --ifm-color-primary-dark: #e600e5;
+  --ifm-color-primary-darker: #d900d9;
+  --ifm-color-primary-darkest: #b300b2;
+  --ifm-color-primary-light: #ff1aff;
+  --ifm-color-primary-lighter: #ff26ff;
+  --ifm-color-primary-lightest: #ff4dff;
+  /* Color which works with dark mode syntax highlighting theme */
+  --docusaurus-highlighted-code-line-bg: rgb(44, 44, 44);
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: center;
+  align-content: space-around;
+  min-height: 90vh;
+  background-color: var(--ifm-background-color);
+}
+
+/* 标题样式 */
+h1{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #f72585; 
+  font-weight: bold; /* 加粗 */
+}
+
+h2{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #b5179e; 
+  font-weight: bold; /* 加粗 */
+}
+
+h3{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #8b0edf; 
+  font-weight: bold; /* 加粗 */
+}
+
+h4{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #560bad; 
+  font-weight: bold; /* 加粗 */
+}
+
+h5{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #480ca8; 
+  font-weight: bold; /* 加粗 */
+}
+
+h6{
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #4cc9f0; 
+  font-weight: bold; /* 加粗 */
+}
+
+/* 代码块样式 */
+code {
+  background-color: #282828; /* 暗色背景 */
+  color: #00ff00; 
+  font-family: 'Fira Code', monospace; /* 使用等宽字体 */
+  padding: 2px 4px; /* 内边距 */
+  border-radius: 4px; /* 圆角边框 */
+}
+
+/* 行内代码样式 */
+:not(pre) > code {
+  background-color: #282828;
+  color: #00ff00;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+/* 加粗样式 */
+strong {
+  color: #00ffff; 
+  font-weight: bold; /* 加粗 */
+}
+
+/* 斜体样式 */
+em {
+  color: #ff00ff; 
+  font-style: italic;
+}
+
+/* 链接样式 */
+a {
+  color: #ff00ff; 
+  text-decoration: none; /* 无下划线 */
+}
+
+a:hover {
+  text-decoration: underline; /* 鼠标悬停时添加下划线 */
+}

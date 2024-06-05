@@ -1,0 +1,22 @@
+{
+  "title": {
+    "message": "Moonlit",
+    "description": "The title in the navbar"
+  },
+  "logo.alt": {
+    "message": "Moonlit Logo",
+    "description": "The alt text of navbar logo"
+  },
+  "item.label.Docs": {
+    "message": "代码涌动",
+    "description": "Navbar item with label Docs"
+  },
+  "item.label.Blog": {
+    "message": "霓虹笔记",
+    "description": "Navbar item with label Blog"
+  },
+  "item.label.GitHub": {
+    "message": "GitHub",
+    "description": "Navbar item with label GitHub"
+  }
+}
