@@ -10,6 +10,7 @@ export default function BlogPostPageWrapper(props: Props): JSX.Element {
   return (
     <>
       <BlogPostPage {...props} />
+      <Comment/>
     </>
   );
 }

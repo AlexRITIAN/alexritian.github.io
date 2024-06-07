@@ -37,9 +37,10 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-        },
+        // docs: {
+        //   sidebarPath: './sidebars.ts',
+        // },
+        docs: false,
         blog: {
           showReadingTime: true,
         },
@@ -60,12 +61,12 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'docSidebar',
-          position: 'left',
-          label: 'Docs',
-        },
+        // {
+        //   type: 'docSidebar',
+        //   sidebarId: 'docSidebar',
+        //   position: 'left',
+        //   label: 'Docs',
+        // },
         { to: '/blog', label: 'Blog', position: 'left' },
         {
           href: 'https://github.com/AlexRITIAN',

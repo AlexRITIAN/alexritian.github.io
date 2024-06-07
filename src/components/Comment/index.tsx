@@ -4,6 +4,8 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { ThemeConfig } from '@docusaurus/preset-classic'
 import BrowserOnly from '@docusaurus/BrowserOnly'
 import Giscus, { GiscusProps, Theme } from '@giscus/react'
+import styles from './styles.module.css';
+ 
 
 export type GiscusConfig = GiscusProps & { darkTheme: Theme }
 
@@ -29,12 +31,19 @@ export default function Comment(): JSX.Element {
     throw new Error('You must provide `repo`, `repoId`, and `categoryId` to `themeConfig.giscus`.')
   }
 
-  giscus.theme = useColorMode().colorMode === 'dark' ? giscus.darkTheme : giscus.theme
+  giscus.theme = giscus.darkTheme
   giscus.lang = i18n.currentLocale
 
   return (
     <BrowserOnly fallback={<div>Loading Comments...</div>}>
-      {() => <Giscus {...giscus} />}
+      {() => 
+      <div className='container margin-vert--lg'>
+        <div className="row">
+          <div className='col col--3'></div>
+          <div className='col col--7'><Giscus {...giscus} /></div>
+        </div>
+       </div>
+      }
     </BrowserOnly>
   )
 }
