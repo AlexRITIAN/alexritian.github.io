@@ -37,10 +37,9 @@ const config: Config = {
     [
       'classic',
       {
-        // docs: {
-        //   sidebarPath: './sidebars.ts',
-        // },
-        docs: false,
+        docs: {
+          sidebarPath: './sidebars.ts',
+        },
         blog: {
           showReadingTime: true,
         },
@@ -52,6 +51,12 @@ const config: Config = {
   ],
 
   themeConfig: {
+    docs: {
+      sidebar: {
+        autoCollapseCategories: true,
+        hideable: true
+      },
+    },
     // Replace with your project's social card
     image: 'img/moonlit-social-card.jpg',
     navbar: {
@@ -68,10 +73,22 @@ const config: Config = {
         //   label: 'Docs',
         // },
         { to: '/blog', label: 'Blog', position: 'left' },
+        { 
+          to: 'docs/dairy', 
+          label: 'Dairy', 
+          position: 'left' 
+        },
         {
           href: 'https://github.com/AlexRITIAN',
-          label: 'GitHub',
           position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'Github profile',
+        },
+        {
+          href: 'https://steamcommunity.com/profiles/76561198097104630/',
+          position: 'right',
+          className: 'header-steam-link',
+          'aria-label': 'Steam',
         },
         {
           type: 'localeDropdown',

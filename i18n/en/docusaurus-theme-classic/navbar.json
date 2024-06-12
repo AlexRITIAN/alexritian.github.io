@@ -15,8 +15,8 @@
     "message": "Neon Notes",
     "description": "Navbar item with label Blog"
   },
-  "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
+  "item.label.Dairy": {
+    "message": "Circuit Scripts",
+    "description": "Navbar item with label Dairy"
   }
 }

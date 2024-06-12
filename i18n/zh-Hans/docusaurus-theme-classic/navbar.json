@@ -15,8 +15,8 @@
     "message": "霓虹笔记",
     "description": "Navbar item with label Blog"
   },
-  "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
+  "item.label.Dairy": {
+    "message": "电路手记",
+    "description": "Navbar item with label Dairy"
   }
 }
