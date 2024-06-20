@@ -7,6 +7,8 @@ image: /img/blog/cyberpunk_blog_celebration.png
 
 Moonlit小站上线啦！！！:rocket:
 
+![Moonlit](./cyberpunk_blog_celebration.png)
+
 <!-- truncate -->
 
 经过几天折腾，**Moonlit** 小站终于上线了 :rocket: :rocket: :rocket: 

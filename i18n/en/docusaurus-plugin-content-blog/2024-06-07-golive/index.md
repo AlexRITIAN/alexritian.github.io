@@ -7,6 +7,8 @@ image: /img/blog/cyberpunk_blog_celebration.png
 
 Moonlit website is live!!! :rocket:
 
+![Moonlit](./cyberpunk_blog_celebration.png)
+
 <!-- truncate -->
 
 After a few days of tinkering, the **Moonlit** website is finally live :rocket: :rocket: :rocket: 

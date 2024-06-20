@@ -1,0 +1,13 @@
+springboot:
+  label: 'Spring Boot'
+
+jooq:
+  label: 'JOOQ'
+  description: 'The easiest way to write SQL in Java'
+
+java:
+  label: 'Java'
+
+gradle:
+  label: 'Gradle'
+  description: 'Gradle build Tool'

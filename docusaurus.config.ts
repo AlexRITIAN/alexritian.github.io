@@ -99,6 +99,7 @@ const config: Config = {
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
+      additionalLanguages: ['java', 'groovy', 'yaml'], // 添加你需要的语言支持
       magicComments: [
         {
           className: 'theme-code-block-highlighted-line',
