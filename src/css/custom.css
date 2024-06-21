@@ -52,43 +52,44 @@ h1 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #ff007f; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f;
+  text-shadow: 0 0 5px #cc0066, 0 0 10px #cc0066, 0 0 20px #cc0066, 0 0 40px #cc0066;
 }
 
 h2 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #d9008f; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #d9008f, 0 0 10px #d9008f, 0 0 20px #d9008f, 0 0 40px #d9008f;
+  text-shadow: 0 0 5px #b30076, 0 0 10px #b30076, 0 0 20px #b30076, 0 0 40px #b30076;
 }
 
 h3 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #b5179e; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #b5179e, 0 0 10px #b5179e, 0 0 20px #b5179e, 0 0 40px #b5179e;
+  text-shadow: 0 0 5px #920e80, 0 0 10px #920e80, 0 0 20px #920e80, 0 0 40px #920e80;
 }
 
 h4 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #8b0edf; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #8b0edf, 0 0 10px #8b0edf, 0 0 20px #8b0edf, 0 0 40px #8b0edf;
+  text-shadow: 0 0 5px #720bb2, 0 0 10px #720bb2, 0 0 20px #720bb2, 0 0 40px #720bb2;
 }
 
 h5 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #6200ff; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #6200ff, 0 0 10px #6200ff, 0 0 20px #6200ff, 0 0 40px #6200ff;
+  text-shadow: 0 0 5px #4e00cc, 0 0 10px #4e00cc, 0 0 20px #4e00cc, 0 0 40px #4e00cc;
 }
 
 h6 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #3a00ff; 
   font-weight: bold; /* 加粗 */
-  text-shadow: 0 0 5px #3a00ff, 0 0 10px #3a00ff, 0 0 20px #3a00ff, 0 0 40px #3a00ff;
+  text-shadow: 0 0 5px #2e00cc, 0 0 10px #2e00cc, 0 0 20px #2e00cc, 0 0 40px #2e00cc;
 }
+
 
 /* 代码块样式 */
 code {
