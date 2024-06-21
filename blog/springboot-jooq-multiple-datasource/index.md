@@ -478,7 +478,8 @@ public class JooqConfig {
                     throw new NoSuchBeanDefinitionException("no target switch");  
             }  
             return configuration;  
-        }        throw new NoSuchBeanDefinitionException("no target switch");  
+        }
+        throw new NoSuchBeanDefinitionException("no target switch");  
     }  
   
     @Bean  

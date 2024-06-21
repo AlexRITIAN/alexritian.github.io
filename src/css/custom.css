@@ -16,8 +16,8 @@
   --ifm-footer-background-color: #2b3137;
   --ifm-code-font-size: 95%;
   --ifm-line-height-base: 1.5;
-  --ifm-font-family-base: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
-  --ifm-font-family-monospace: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  --ifm-font-family-base: JetBrains Mono, LXGW WenKai Mono, -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, WenQuanYi Micro Hei, sans-serif;
+  --ifm-font-family-monospace: JetBrains Mono, LXGW WenKai Mono, source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   --docusaurus-highlighted-code-line-bg: rgb(235, 235, 235);
   --cyberpunk-primary-color: #0ff; /* 亮蓝色 */
   --cyberpunk-secondary-color: #f72585; /* 深蓝色 */
@@ -48,47 +48,52 @@
 }
 
 /* 标题样式 */
-h1{
+h1 {
   /* 赛博朋克风格的霓虹色彩 */
-  color: #f72585; 
+  color: #ff007f; 
   font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f;
 }
 
-h2{
+h2 {
+  /* 赛博朋克风格的霓虹色彩 */
+  color: #d9008f; 
+  font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #d9008f, 0 0 10px #d9008f, 0 0 20px #d9008f, 0 0 40px #d9008f;
+}
+
+h3 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #b5179e; 
   font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #b5179e, 0 0 10px #b5179e, 0 0 20px #b5179e, 0 0 40px #b5179e;
 }
 
-h3{
+h4 {
   /* 赛博朋克风格的霓虹色彩 */
   color: #8b0edf; 
   font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #8b0edf, 0 0 10px #8b0edf, 0 0 20px #8b0edf, 0 0 40px #8b0edf;
 }
 
-h4{
+h5 {
   /* 赛博朋克风格的霓虹色彩 */
-  color: #560bad; 
+  color: #6200ff; 
   font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #6200ff, 0 0 10px #6200ff, 0 0 20px #6200ff, 0 0 40px #6200ff;
 }
 
-h5{
+h6 {
   /* 赛博朋克风格的霓虹色彩 */
-  color: #480ca8; 
+  color: #3a00ff; 
   font-weight: bold; /* 加粗 */
-}
-
-h6{
-  /* 赛博朋克风格的霓虹色彩 */
-  color: #4cc9f0; 
-  font-weight: bold; /* 加粗 */
+  text-shadow: 0 0 5px #3a00ff, 0 0 10px #3a00ff, 0 0 20px #3a00ff, 0 0 40px #3a00ff;
 }
 
 /* 代码块样式 */
 code {
   background-color: #282828; /* 暗色背景 */
   color: #00ff00; 
-  font-family: 'Fira Code', monospace; /* 使用等宽字体 */
   padding: 2px 4px; /* 内边距 */
   border-radius: 4px; /* 圆角边框 */
 }
