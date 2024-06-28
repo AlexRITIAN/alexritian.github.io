@@ -1,6 +1,7 @@
 ---
 slug: /dairy
 title: dairy-intro
+sidebar_position: 1
 ---
 
 # Hello form Too_Young
