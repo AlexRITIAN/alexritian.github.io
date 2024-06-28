@@ -1,6 +1,6 @@
 ---
 authors: too
-title: Springboot配置Springdoc
+title: Spring Boot Configuration for Springdoc
 date: 2024/06/28
 tags: [springboot, springdoc, java]
 toc_max_heading_level: 6
