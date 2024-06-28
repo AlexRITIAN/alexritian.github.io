@@ -129,6 +129,14 @@ const config: Config = {
       bodyFontFamily: ["JetBrains Mono", "LXGW WenKai Mono"],
       headerFontFamily: ["JetBrains Mono", "LXGW WenKai Mono"],
     },
+    metadata: [
+      {
+        name: 'description', content: 'this is Too_Young website, Moonlit'
+      },
+      {
+        name: 'keywords', content: 'spring, springboot, too_young, moonlit, gradle, jooq, zsh'
+      },
+    ]
   } satisfies Preset.ThemeConfig,
   plugins: [
     // require.resolve("@cmfcmf/docusaurus-search-local"),
