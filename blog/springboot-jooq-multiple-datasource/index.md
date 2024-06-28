@@ -7,17 +7,17 @@ toc_max_heading_level: 6
 keywords: [springboot, jooq, java, datasource, spring]
 ---
 
-在Springboot中配置多数据源，并使用JOOQ为每个数据源生成代码
+![bk](./bk.png)
+
+
+在Springboot项目中，如果我们只有一个数据源，`springboot` 会自动创建 `DataSource` , 这个时候使用JOOQ来生成代码，JOOQ就会自动使用默认的数据源。在项目中遇到一个需要配置多个数据源的情况，下面就让我们看一下如何给 `springboot` 配置多个数据源，并且使用 `JOOQ` 为每个数据源生成代码
 
 :::info
 文中使用 `Gradle` 作为项目构建工具
 :::
 
-![bk](./bk.png)
-
 <!-- truncate -->
 
-在Springboot项目中，如果我们只有一个数据源，`springboot` 会自动创建 `DataSource` , 这个时候使用JOOQ来生成代码，JOOQ就会自动使用默认的数据源。在项目中遇到一个需要配置多个数据源的情况，下面就让我们看一下如何给 `springboot` 配置多个数据源，并且使用 `JOOQ` 为每个数据源生成代码
 
 ## 环境信息
 

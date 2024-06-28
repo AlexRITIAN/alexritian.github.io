@@ -1,6 +1,9 @@
 springboot:
   label: 'Spring Boot'
 
+springdoc:
+  label: 'Spring Doc'
+
 jooq:
   label: 'JOOQ'
   description: 'The easiest way to write SQL in Java'

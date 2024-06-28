@@ -1,6 +1,7 @@
 ---
 slug: /dairy
 title: dairy-intro
+sidebar_position: 1
 ---
 
 # 来自 Too_Young 的问候

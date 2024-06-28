@@ -6,5 +6,13 @@
   "sidebar.docSidebar.category.dairy": {
     "message": "Circuit Scripts",
     "description": "The label for category dairy in sidebar docSidebar"
+  },
+  "sidebar.docSidebar.category.2024": {
+    "message": "2024",
+    "description": "The label for category 2024 in sidebar docSidebar"
+  },
+  "sidebar.docSidebar.category.06": {
+    "message": "06",
+    "description": "The label for category 06 in sidebar docSidebar"
   }
 }

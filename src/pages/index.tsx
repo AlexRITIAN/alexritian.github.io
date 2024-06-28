@@ -14,7 +14,7 @@ function HomepageHeader() {
       <span style={{ 
             color: 'white', 
             textShadow: '0 0 5px #fff, 0 0 10px #fff' 
-          }}><Translate>欢迎来到 ~</Translate></span>
+          }}><Translate>welcome</Translate></span>
           <span
             style={{ 
               color: 'var(--cyberpunk-primary-color)', 
@@ -29,7 +29,7 @@ function HomepageHeader() {
             textShadow: 'var(--cyberpunk-secondary-shadow)' 
           }}
         >
-          <Translate>一起探索技术的奇妙世界吧！</Translate>
+          <Translate>slog</Translate>
         </p>
       </div>
       <div className={styles.welcome_svg}>
