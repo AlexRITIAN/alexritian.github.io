@@ -11,3 +11,5 @@ java:
 springboot:
 
 edge:
+
+arch:
