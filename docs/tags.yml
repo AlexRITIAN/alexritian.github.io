@@ -13,3 +13,7 @@ springboot:
 edge:
 
 arch:
+
+spock:
+
+junit:
