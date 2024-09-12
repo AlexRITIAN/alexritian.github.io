@@ -17,3 +17,5 @@ arch:
 spock:
 
 junit:
+
+maven:
