@@ -19,3 +19,9 @@ spock:
 junit:
 
 maven:
+
+groovy:
+
+kotlin:
+
+plugin:
