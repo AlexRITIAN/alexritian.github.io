@@ -9,10 +9,6 @@ keywords: [ansible]
 
 ![bk](./bk.png)
 
-以下是翻译并润色后的英文版本：
-
----
-
 ## What is Ansible?
 
 Ansible is an open-source automation tool designed to simplify IT infrastructure management, application deployment, and task automation.
