@@ -14,3 +14,7 @@ java:
 gradle:
   label: 'Gradle'
   description: 'Gradle build Tool'
+
+ansible:
+  label: 'Ansible'
+  description: 'Ansible is a radically simple IT automation system.'
