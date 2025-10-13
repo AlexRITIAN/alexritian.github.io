@@ -29,7 +29,7 @@ keywords: [springboot, maven, java, gradle, spring]
 	- `namespace`（对应你的 `groupId`）
 - 一对 **GPG 密钥**（用于签名）
 
-:::tip 💡 **小贴士**  
+:::tip  
  使用 GitHub 账号注册 Maven Central 是最便捷的方式。Maven Central 会自动为你创建一个 `io.github.<GitHub 用户名>` 的 `namespace`，并自动完成验证。
 :::
 
@@ -44,7 +44,7 @@ Maven Central 不再使用账号密码，而是通过 **User Token** 进行发�
 3. 选择 **View User Tokens**  
 4. 点击 **Generate User Token** 按钮
 
-:::caution ⚠️ **注意**  
+:::caution
 Token 只会在生成后的页面显示一次，请务必及时保存 Token，一旦关闭将无法再次查看。
 :::
 
@@ -53,7 +53,7 @@ Token 只会在生成后的页面显示一次，请务必及时保存 Token，�
 ## 🧭 Win11 安装 GPG
 
 :::tip 
-💡 如果你的系统中已经安装了 Git，那么 Git Bash 中自带 `gpg` 命令，可直接跳过安装步骤。
+如果你的系统中已经安装了 Git，那么 Git Bash 中自带 `gpg` 命令，可直接跳过安装步骤。
 :::
 
 1. 前往 [Gpg4win 官网](https://gpg4win.org/download.html) 下载并安装  
@@ -159,7 +159,7 @@ plugins {
 ```
 
 :::tip
-📘 官方尚无 Gradle 官方发布插件，目前推荐使用社区的 [vanniktech/gradle-maven-publish-plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/what/)
+官方尚无 Gradle 官方发布插件，目前推荐使用社区的 [vanniktech/gradle-maven-publish-plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/what/)
 :::
 
 ---
@@ -199,7 +199,7 @@ mavenPublishing {
     pom {
         name.set("${project.group}:${project.name}")
         description.set("This project provides runtime support libraries required by Codegen-gradle-plugin")
-        url.set("https://github.com/AlexRITIAN/codegn-gradle-plugin-runtime")
+        url.set("<project web site>")
 
         licenses {
             license {
@@ -210,16 +210,16 @@ mavenPublishing {
 
         developers {
             developer {
-                id.set("AlexRITIAN")
-                name.set("Too_Young")
-                email.set("yhritianfq@gmail.com")
+                id.set("UserID")
+                name.set("User name")
+                email.set("example@mail.com")
             }
         }
 
         scm {
-            url.set("https://github.com/AlexRITIAN/codegn-gradle-plugin-runtime")
-            connection.set("scm:git:git://github.com/AlexRITIAN/codegn-gradle-plugin-runtime")
-            developerConnection.set("scm:git:ssh://git@github.com:AlexRITIAN/codegn-gradle-plugin-runtime.git")
+            url.set("<project web site>")
+            connection.set("scm:git:git://github.com/<user name>/<project>")
+            developerConnection.set("scm:git:ssh://git@github.com:<user name>/<project>.git")
         }
     }
 }
@@ -242,10 +242,11 @@ mavenPublishing {
 ```
 
 :::caution
-⚠️ Maven Central Portal **不支持 SNAPSHOT 版本** 发布，请确保版本号不是 `-SNAPSHOT` 结尾。
+Maven Central Portal **不支持 SNAPSHOT 版本** 发布，请确保版本号不是 `-SNAPSHOT` 结尾。
 :::
 
 发布成功之后，登录到[Maven Central](https://central.sonatype.com/publishing),找到刚发布的项目，点击一下`Publish`,等待几分钟后，项目状态为`Published`就说名已经成功发布到maven仓库了，可以被其他项目使用了。
+
 ---
 
 ## 🏁 结语
