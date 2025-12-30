@@ -21,3 +21,10 @@ ansible:
 
 maven:
   label: 'Maven'
+
+linux:
+  lable: 'Linux'
+
+tmux:
+  lable: 'Tmux'
+  description: 'A Linux Terminal Multiplexer'
