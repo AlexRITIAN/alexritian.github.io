@@ -23,8 +23,8 @@ maven:
   label: 'Maven'
 
 linux:
-  lable: 'Linux'
+  label: 'Linux'
 
 tmux:
-  lable: 'Tmux'
+  label: 'Tmux'
   description: 'A Linux Terminal Multiplexer'
