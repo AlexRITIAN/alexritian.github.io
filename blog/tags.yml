@@ -28,3 +28,6 @@ linux:
 tmux:
   label: 'Tmux'
   description: 'A Linux Terminal Multiplexer'
+
+temporal:
+  label: 'Temporal'
