@@ -1,6 +1,6 @@
 ---
 authors: too
-title: 在Fly.io中部署tinyproxy
+title: Deploy tinyproxy on Fly.io
 date: 2024/10/15
 tags: [docker]
 toc_max_heading_level: 6
