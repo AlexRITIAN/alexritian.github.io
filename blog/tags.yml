@@ -31,3 +31,6 @@ tmux:
 
 temporal:
   label: 'Temporal'
+
+docker:
+  label: 'Docker'
