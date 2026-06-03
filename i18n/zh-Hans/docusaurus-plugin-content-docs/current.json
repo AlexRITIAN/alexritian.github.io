@@ -7,6 +7,10 @@
     "message": "电路手记",
     "description": "The label for category dairy in sidebar docSidebar"
   },
+  "sidebar.newsSidebar.category.news": {
+    "message": "报告中心",
+    "description": "The label for category news in sidebar newsSidebar"
+  },
   "sidebar.docSidebar.category.2024": {
     "message": "2024",
     "description": "The label for category 2024 in sidebar docSidebar"

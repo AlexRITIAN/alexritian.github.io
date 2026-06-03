@@ -15,6 +15,10 @@
     "message": "霓虹笔记",
     "description": "Navbar item with label Blog"
   },
+  "item.label.News": {
+    "message": "报告中心",
+    "description": "Navbar item with label News"
+  },
   "item.label.Dairy": {
     "message": "电路手记",
     "description": "Navbar item with label Dairy"

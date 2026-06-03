@@ -50,6 +50,19 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'news',
+        path: 'news',
+        routeBasePath: 'news',
+        sidebarPath: './sidebarsNews.ts',
+      },
+    ],
+    'plugin-image-zoom'
+  ],
+
   themeConfig: {
     docs: {
       sidebar: {
@@ -73,6 +86,11 @@ const config: Config = {
         //   label: 'Docs',
         // },
         { to: '/blog', label: 'Blog', position: 'left' },
+        {
+          to: '/news',
+          label: 'News',
+          position: 'left'
+        },
         { 
           to: 'docs/dairy', 
           label: 'Dairy', 
@@ -138,10 +156,6 @@ const config: Config = {
       },
     ]
   } satisfies Preset.ThemeConfig,
-  plugins: [
-    // require.resolve("@cmfcmf/docusaurus-search-local"),
-    'plugin-image-zoom'
-  ],
 };
 
 export default config;
